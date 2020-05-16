@@ -122,5 +122,8 @@
       }
     }
   },
-  "defaultProject": "APP2"
+  "defaultProject": "APP2",
+  "cli": {
+    "analytics": false
+  }
 }
