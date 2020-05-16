@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DashpedidosModule } from './pages/dashpedidos/dashpedidos.module';
+import { DashtallerModule } from './pages/dashtaller/dashtaller.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +14,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    DashpedidosModule,
+    DashtallerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
