@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MainmodalComponent } from './components/mainmodal/mainmodal.component';
+
 
 @Component({
   selector: 'app-dashtaller',
