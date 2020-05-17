@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from "@angular/cdk/drag-drop";
+
 import { MainmodalComponent } from './components/mainmodal/mainmodal.component';
+import { NgbModal, NgbCalendar, NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -9,9 +12,79 @@ import { MainmodalComponent } from './components/mainmodal/mainmodal.component';
 })
 export class DashtallerComponent implements OnInit {
 
-  constructor() { }
+  constructor(private modal: NgbModal, private calendar: NgbCalendar, config: NgbTimepickerConfig) { }
 
   ngOnInit(): void {
   }
 
+  sectoresv2 = [
+    {
+      sector: 'Espera Repuestos',
+      vehiculos: [
+
+      ]
+    },
+    {
+      sector: 'Espera turno',
+      vehiculos: [
+
+      ]
+    },
+    {
+      sector: 'Ingreso',
+      vehiculos: [
+        { modelo: 'Toyota Hilux', patente: '001', color: 'Rojo' },
+        { modelo: 'Fiat Strada', patente: '002', fecha_entrega: '10' }
+      ]
+    },
+    {
+      sector: 'Desarme',
+      vehiculos: [
+        { modelo: 'Chevrolet Corsa', patente: '001' },
+        { modelo: 'Toyota Etios', patente: '002' }
+      ]
+    },
+    {
+      sector: 'Preparacion',
+      vehiculos: [
+        { modelo: 'Peugeot Partner', patente: '003' },
+        { modelo: 'Peugeot 5008', patente: '004' }
+      ]
+    }
+    ,
+    {
+      sector: 'Entrega',
+      vehiculos: [
+      ]
+    }
+  ];
+  pieza = [
+    { nombre: '' },
+    { accion: '' },
+    { codigo: '' },
+  ]
+
+
+  onDrop(event: CdkDragDrop<any[]>) {
+    console.log(event);
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }
+
+
+    console.log(event.item.element.nativeElement.id);
+    console.log(event.previousContainer.element.nativeElement.id);
+    console.log(event.container.element.nativeElement.id);
+  }
+
+  openModal(content) {
+    this.modal.open(content, { size: 'lg', scrollable: true });
+  }
 }

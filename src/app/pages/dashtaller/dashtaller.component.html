@@ -1,3 +1,19 @@
-<p>dashtaller works!</p>
-<!-- columnas y tarjetas -->
-<app-mainmodal></app-mainmodal>
+<div class="container-fluid bg-info h-100 w-100">
+  <div class="row flex-row flex-nowrap" cdkDropListGroup>
+    <div class="col-3" *ngFor="let sector of sectoresv2">
+      <h2>{{ sector.sector }}</h2>
+      <div cdkDropList #moviesList="cdkDropList" [cdkDropListData]="sector.vehiculos" class="movie-list"
+        (cdkDropListDropped)="onDrop($event)" [id]="sector.sector">
+        <div class="list-group-item" *ngFor="let vh of sector.vehiculos" (click)="openModal(contentModal)"
+          [id]="vh.patente" cdkDrag>
+          {{ vh.modelo }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #contentModal let-modal class="content-modal">
+  <app-mainmodal>
+
+  </app-mainmodal>
+</ng-template>

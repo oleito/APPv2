@@ -10,13 +10,16 @@ import { PiezasComponent } from './components/piezas/piezas.component';
 import { FotosComponent } from './components/fotos/fotos.component';
 import { ActividadComponent } from './components/actividad/actividad.component';
 import { ReferenciasComponent } from './components/referencias/referencias.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 
 
 @NgModule({
   declarations: [DashtallerComponent, MainmodalComponent, ModelsmodalComponent, DatosComponent, PiezasComponent, FotosComponent, ActividadComponent, ReferenciasComponent],
   imports: [
     CommonModule,
-    DashtallerRoutingModule
+    DashtallerRoutingModule,
+    DragDropModule
   ]
 })
 export class DashtallerModule { }
