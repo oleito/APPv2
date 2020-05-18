@@ -6,7 +6,7 @@
 /* .scroll {
   overflow-y: scroll;
 } */
-.btn-tool {
+/* .btn-tool {
   background-color: #bebfc1;
   border-color: rgb(0, 0, 0) solid 30px !important;
 }
@@ -19,6 +19,7 @@
 }
 
 /* TARJETAS */
+/*
 .card-body {
   background-color: #e6f4f1;
 }
@@ -44,19 +45,19 @@
 .badge-secondary {
   background-color: #ffffff;
   color: #3e4756;
-}
+} */
 
 /** POPOVERS **/
-.img-mini-modelo {
+/* .img-mini-modelo {
   width: 250px;
   height: 120px;
-}
+} */
 
 /* CARGA DE IMAGENES */
-.boton-cerrar-thu {
+/* .boton-cerrar-thu {
   position: absolute;
   margin-top: -5px;
   margin-left: -9px;
   background-color: white;
   color: red;
-}
+} */

@@ -1,1 +1,76 @@
-<p>modelsmodal works!</p>
+<div class="modelos-modal">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">DATOS DE CARROCERIA, MARCA Y MODELOS</h4>
+    <!-- <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"> -->
+    <button type="button" class="close" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-4">
+        <h4>MARCA</h4>
+        <div class="input-group">
+          <input type="text" class="form-control form-control-sm" placeholder="Marca">
+          <div class="input-group-append">
+            <button class="btn btn-success btn-sm" type="button">+</button>
+          </div>
+        </div>
+        <table class="table table-hover table-sm">
+          <tbody>
+            <tr>
+              <td>Peugeot</td>
+            </tr>
+            <tr>
+              <td>Citroen</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-4">
+        <h4>MODELO</h4>
+        <div class="input-group">
+          <input type="text" class="form-control form-control-sm " placeholder="Modelo">
+          <div class="input-group-append">
+            <button class="btn btn-success btn-sm" type="button">+</button>
+          </div>
+        </div>
+        <table class="table table-hover table-sm">
+          <tbody>
+            <tr>
+              <td>307 Allure</td>
+            </tr>
+            <tr>
+              <td>Partner patagonica</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-4">
+        <h4>CARROCERIA</h4>
+        <div class="input-group">
+          <select class="form-control form-control-sm">
+            <option selected>Staton Wagon</option>
+            <option>Coupe</option>
+            <option>Cambiar</option>
+          </select>
+        </div>
+        <img src="https://via.placeholder.com/235x160" class="img img-fluid mt-3">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <button class="float-right btn btn-sm btn-success mt-5">
+          Confirmar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <!-- <button type="button" class="btn btn-outline-dark" (click)="modal.close('Salir click')">Salir</button> -->
+    <button type="button" class="btn btn-outline-dark">Salir</button>
+  </div>
+
+</div>

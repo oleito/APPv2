@@ -11,15 +11,18 @@ import { FotosComponent } from './components/fotos/fotos.component';
 import { ActividadComponent } from './components/actividad/actividad.component';
 import { ReferenciasComponent } from './components/referencias/referencias.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MenuComponent } from './components/menu/menu.component';
 
 
 
 @NgModule({
-  declarations: [DashtallerComponent, MainmodalComponent, ModelsmodalComponent, DatosComponent, PiezasComponent, FotosComponent, ActividadComponent, ReferenciasComponent],
+  declarations: [DashtallerComponent, MainmodalComponent, ModelsmodalComponent, DatosComponent, PiezasComponent, FotosComponent, ActividadComponent, ReferenciasComponent, MenuComponent],
   imports: [
     CommonModule,
     DashtallerRoutingModule,
-    DragDropModule
+    DragDropModule,
+    NgbModule,
   ]
 })
 export class DashtallerModule { }

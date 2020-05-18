@@ -1,0 +1,167 @@
+<!-- BOTONES -->
+<div>
+  <button class="btn btn-sm btn-block text-left btn-secondary" placement="bottom" [ngbPopover]="popContentDatos"
+    [autoClose]="'outside'" container="body">
+    Orden
+  </button>
+  <button class="btn btn-sm btn-block text-left btn-secondary" placement="bottom" [ngbPopover]="popContentVehiculo"
+    [autoClose]="'outside'" container="body">
+    Vehiculo
+  </button>
+  <button class="btn btn-sm btn-block text-left btn-secondary" placement="bottom" [ngbPopover]="popContentModelo"
+    [autoClose]="'outside'" container="body">
+    Modelo
+  </button>
+  <button class="btn btn-sm btn-block text-left btn-secondary" placement="bottom" [ngbPopover]="popContentEntrega"
+    [autoClose]="'outside'" container="body">
+    Fecha entrega
+  </button>
+  <button class="btn btn-sm btn-block text-left btn-secondary" placement="bottom" [ngbPopover]="popContentSeguro"
+    [autoClose]="'outside'" container="body">
+    Seguro
+  </button>
+  <hr class="hr" />
+  <button class="btn btn-sm btn-block text-left btn-secondary" placement="bottom" [ngbPopover]="popContentPedido"
+    [autoClose]="'outside'" container="body">
+    Pedido
+  </button>
+  <hr class="hr" />
+  <button class="btn btn-sm btn-block text-left btn-secondary" placement="bottom" [ngbPopover]="popContentFotos"
+    [autoClose]="'outside'" container="body">
+    Fotos
+  </button>
+  <button class="btn btn-sm btn-block text-left btn-secondary">
+    Generar order
+  </button>
+</div>
+
+<!-- POP DATOS -->
+<ng-template #popContentDatos>
+  <div class="form-group mb-0">
+    <label class="mb-0 mt-1">Referencia</label>
+    <input type="text" class="form-control form-control-sm" />
+  </div>
+  <div class="form-group mb-0">
+    <label class="mb-0 mt-1">Orden</label>
+    <input type="text" class="form-control form-control-sm" />
+  </div>
+  <div class="form-group mb-0">
+    <label class="mb-0 mt-1">Siniestro</label>
+    <input type="text" class="form-control form-control-sm" />
+  </div>
+  <div class="my-2">
+    <button class="btn btn-sm btn-block btn-success">Aceptar</button>
+  </div>
+</ng-template>
+
+<!-- POP VEHICULO -->
+<ng-template #popContentVehiculo>
+  <div class="form-group mb-0">
+    <label class="mb-0 mt-1">Patente</label>
+    <input type="text" class="form-control form-control-sm" />
+  </div>
+  <div class="form-group mb-0">
+    <label class="mb-0 mt-1">VIN</label>
+    <input type="text" class="form-control form-control-sm" />
+  </div>
+  <div class="form-group mb-0">
+    <label class="mb-0 mt-1">Color</label>
+    <input type="text" class="form-control form-control-sm" />
+  </div>
+  <div class="my-2">
+    <button class="btn btn-sm btn-block btn-success">Aceptar</button>
+  </div>
+</ng-template>
+
+<!-- POP MODELO -->
+<ng-template #popContentModelo>
+  <div class="form-group mb-0">
+    <label>Marca</label>
+    <select class="form-control form-control-sm" id="exampleFormControlSelect1">
+      <option>Ford</option>
+      <option>Fiat</option>
+    </select>
+  </div>
+  <div class="form-group mb-0">
+    <label>Modelo</label>
+    <select class="form-control form-control-sm" id="exampleFormControlSelect1">
+      <option>Falcon</option>
+      <option>Fiesta Max</option>
+    </select>
+  </div>
+  <hr />
+  <img class="img img-fluid img-mini-modelo" src="https://via.placeholder.com/250x120" />
+  <div class="row my-2">
+    <div class="col-6">
+      <button class="btn btn-sm btn-block btn-success">Aceptar</button>
+    </div>
+  </div>
+  <a (click)="openModal(contentModalModelos)">Admin. avanzada</a>
+</ng-template>
+
+<!-- MENU FECHA ENTREGA -->
+<ng-template #popContentEntrega>
+  <div class="mt-2 px-2">
+    <div class="form-group">
+      <div class="input-group">
+        <input class="form-control form-control-sm" placeholder="yyyy-mm-dd" name="dp" />
+        <input type="time" class="form-control form-control-sm" />
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+    <ngb-datepicker class="mx-auto" #dp (navigate)="date = $event.next" dateSelect="fechaElejida()">
+    </ngb-datepicker>
+  </div>
+  <button class="btn btn-sm btn-block btn-success ">Aceptar</button>
+</ng-template>
+
+<!-- MENU SEGURO -->
+<ng-template #popContentSeguro>
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Seleccione</label>
+    <select class="form-control form-control-sm">
+      <option>La Segunda</option>
+      <option>Triunfo</option>
+    </select>
+  </div>
+  <hr />
+  <p>
+    Si el seguro que buscas no se encuentra, puedes agregar uno nuevo.
+  </p>
+  <div class="form-group">
+    <input type="text" class="form-control form-control-sm" placeholder="Seguro..." />
+  </div>
+  <button class="btn btn-sm btn-block btn-success">Agregar</button>
+</ng-template>
+
+<!-- MENU FOTOS -->
+<ng-template #popContentFotos>
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Seleccione</label>
+    <input type="file" class="form-control-file" multiple>
+  </div>
+  <hr />
+  <div>
+
+    <img src="https://via.placeholder.com/40" alt="img img-thumbnail">
+    <a class="boton-cerrar-thu rounded-circle text-decoration-none" href="">x</a>
+  </div>
+  <p>
+    Si el seguro que buscas no se encuentra, puedes agregar uno nuevo.
+  </p>
+  <button class="btn btn-sm btn-block btn-success">Agregar</button>
+</ng-template>
+
+<!-- MENU PIEZAS -->
+<ng-template #popContentPedido>
+  <p class="ml-1">Pedir pieza.</p>
+  <button class="btn btn-sm btn-block btn-success">
+    Realizar pedido de piezas
+  </button>
+</ng-template>
+<!-- MENU -->
+
+<ng-template #contentModalModelos let-modal>
+  <app-modelsmodal></app-modelsmodal>
+</ng-template>

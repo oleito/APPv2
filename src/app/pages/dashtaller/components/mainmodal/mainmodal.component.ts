@@ -5,6 +5,8 @@ import { FotosComponent } from "./../fotos/fotos.component";
 import { ActividadComponent } from "./../actividad/actividad.component";
 import { ReferenciasComponent } from "./../referencias/referencias.component";
 
+import { NgbDateStruct, NgbCalendar, NgbTimepickerConfig, NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'app-mainmodal',
   templateUrl: './mainmodal.component.html',
@@ -12,9 +14,12 @@ import { ReferenciasComponent } from "./../referencias/referencias.component";
 })
 export class MainmodalComponent implements OnInit {
 
-  constructor() { }
+  constructor(private modal: NgbModal, private calendar: NgbCalendar, config: NgbTimepickerConfig) { }
 
   ngOnInit(): void {
+  }
+  openModal(content) {
+    this.modal.open(content, { size: 'lg', scrollable: true });
   }
 
 }
