@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { ModelsmodalComponent } from "./../modelsmodal/modelsmodal.component";
+import { DashtallerService } from '../../services/dashtaller.service';
+import { isNumber } from 'util';
 
 @Component({
   selector: 'app-menu',
@@ -9,7 +11,21 @@ import { ModelsmodalComponent } from "./../modelsmodal/modelsmodal.component";
 })
 export class MenuComponent implements OnInit {
 
-  constructor(private modal: NgbModal) { }
+  isInited = false;
+  error = false;
+
+  constructor(private modal: NgbModal, private dashtaller: DashtallerService) {
+    this.dashtaller.$currentVehicle.subscribe(data => {
+      if (isNumber(data.ref)) {
+        this.isInited = true;
+      } else {
+        this.isInited = false;
+      }
+    }, err => {
+      this.error = true;
+      //show toast
+    })
+  }
 
   ngOnInit(): void {
   }

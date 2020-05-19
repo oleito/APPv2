@@ -14,6 +14,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MenuComponent } from './components/menu/menu.component';
 import { NewmodalComponent } from './components/newmodal/newmodal.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -24,6 +25,8 @@ import { NewmodalComponent } from './components/newmodal/newmodal.component';
     DashtallerRoutingModule,
     DragDropModule,
     NgbModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class DashtallerModule { }

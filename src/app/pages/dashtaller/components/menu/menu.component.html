@@ -1,36 +1,36 @@
 <!-- BOTONES -->
 <div>
   <button class="btn btn-sm btn-block text-left btn-secondary" placement="bottom" [ngbPopover]="popContentDatos"
-    [autoClose]="'outside'" container="body">
+    [autoClose]="'outside'" container="body" [disabled]="!isInited">
     Orden
   </button>
   <button class="btn btn-sm btn-block text-left btn-secondary" placement="bottom" [ngbPopover]="popContentVehiculo"
-    [autoClose]="'outside'" container="body">
+    [autoClose]="'outside'" container="body" [disabled]="!isInited">
     Vehiculo
   </button>
   <button class="btn btn-sm btn-block text-left btn-secondary" placement="bottom" [ngbPopover]="popContentModelo"
-    [autoClose]="'outside'" container="body">
+    [autoClose]="'outside'" container="body" [disabled]="!isInited">
     Modelo
   </button>
   <button class="btn btn-sm btn-block text-left btn-secondary" placement="bottom" [ngbPopover]="popContentEntrega"
-    [autoClose]="'outside'" container="body">
+    [autoClose]="'outside'" container="body" [disabled]="!isInited">
     Fecha entrega
   </button>
   <button class="btn btn-sm btn-block text-left btn-secondary" placement="bottom" [ngbPopover]="popContentSeguro"
-    [autoClose]="'outside'" container="body">
+    [autoClose]="'outside'" container="body" [disabled]="!isInited">
     Seguro
   </button>
   <hr class="hr" />
   <button class="btn btn-sm btn-block text-left btn-secondary" placement="bottom" [ngbPopover]="popContentPedido"
-    [autoClose]="'outside'" container="body">
+    [autoClose]="'outside'" container="body" [disabled]="!isInited">
     Pedido
   </button>
   <hr class="hr" />
   <button class="btn btn-sm btn-block text-left btn-secondary" placement="bottom" [ngbPopover]="popContentFotos"
-    [autoClose]="'outside'" container="body">
+    [autoClose]="'outside'" container="body" [disabled]="!isInited">
     Fotos
   </button>
-  <button class="btn btn-sm btn-block text-left btn-secondary">
+  <button class="btn btn-sm btn-block text-left btn-secondary" [disabled]="!isInited">
     Generar order
   </button>
 </div>

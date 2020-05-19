@@ -1,6 +1,14 @@
 <h4 class="text-muted mb-1">Referencias</h4>
 <hr class="mt-0 mb-3" />
 
-<h2 class="mb-1"><b>Orden: </b>123456</h2>
-<h3 class="mb-1"><b>Ref: </b>9863456</h3>
-<h3 class="mb-1"><b>Siniestro: </b>V-56-123456</h3>
+<form [formGroup]="referenciasForm" (ngSubmit)="onSubmit()">
+  <div class="form-group mb-0" *ngIf="!inited">
+    <label class="mb-0 mt-1">Referencia</label>
+    <input type="number" formControlName="referencia" class="form-control form-control-sm" />
+  </div>
+  <h2 class="mb-1" *ngIf="inited"><b>Ref: </b>{{ referencia }}</h2>
+
+  <div class="my-2" *ngIf="!inited">
+    <button class="btn btn-sm btn-block btn-success" [disabled]="loading" [disabled]="!referenciasForm.valid">Aceptar</button>
+  </div>
+</form>

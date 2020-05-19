@@ -5,6 +5,7 @@ import { NgbModal, NgbCalendar, NgbTimepickerConfig } from '@ng-bootstrap/ng-boo
 
 import { MainmodalComponent } from './components/mainmodal/mainmodal.component';
 import { NewmodalComponent } from "./components/newmodal/newmodal.component";
+import { DashtallerService } from './services/dashtaller.service';
 
 
 
@@ -15,7 +16,7 @@ import { NewmodalComponent } from "./components/newmodal/newmodal.component";
 })
 export class DashtallerComponent implements OnInit {
 
-  constructor(private modal: NgbModal, private calendar: NgbCalendar, config: NgbTimepickerConfig) { }
+  constructor(private dashTallerService: DashtallerService, private modal: NgbModal, private calendar: NgbCalendar, config: NgbTimepickerConfig) { }
 
   ngOnInit(): void {
   }
@@ -88,7 +89,12 @@ export class DashtallerComponent implements OnInit {
   }
 
   openMainModal() {
-    this.modal.open(MainmodalComponent, { size: 'lg', scrollable: true });
+    this.modal.open(MainmodalComponent, { size: 'lg', scrollable: true }).result.then(result => {
+      console.log(result);
+    }).catch(err => {
+      this.dashTallerService.end();
+
+    });
   }
   openModalNuevo() {
     this.modal.open(NewmodalComponent);
