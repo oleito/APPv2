@@ -13,11 +13,12 @@ import { ReferenciasComponent } from './components/referencias/referencias.compo
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MenuComponent } from './components/menu/menu.component';
+import { NewmodalComponent } from './components/newmodal/newmodal.component';
 
 
 
 @NgModule({
-  declarations: [DashtallerComponent, MainmodalComponent, ModelsmodalComponent, DatosComponent, PiezasComponent, FotosComponent, ActividadComponent, ReferenciasComponent, MenuComponent],
+  declarations: [DashtallerComponent, MainmodalComponent, ModelsmodalComponent, DatosComponent, PiezasComponent, FotosComponent, ActividadComponent, ReferenciasComponent, MenuComponent, NewmodalComponent],
   imports: [
     CommonModule,
     DashtallerRoutingModule,

@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from "@angular/cdk/drag-drop";
 
-import { MainmodalComponent } from './components/mainmodal/mainmodal.component';
 import { NgbModal, NgbCalendar, NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+
+import { MainmodalComponent } from './components/mainmodal/mainmodal.component';
+import { NewmodalComponent } from "./components/newmodal/newmodal.component";
+
 
 
 @Component({
@@ -84,7 +87,10 @@ export class DashtallerComponent implements OnInit {
     console.log(event.container.element.nativeElement.id);
   }
 
-  openModal(content) {
-    this.modal.open(content, { size: 'lg', scrollable: true });
+  openMainModal() {
+    this.modal.open(MainmodalComponent, { size: 'lg', scrollable: true });
+  }
+  openModalNuevo() {
+    this.modal.open(NewmodalComponent);
   }
 }

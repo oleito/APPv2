@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { ModelsmodalComponent } from "./../modelsmodal/modelsmodal.component";
 
 @Component({
   selector: 'app-menu',
@@ -17,8 +18,8 @@ export class MenuComponent implements OnInit {
   fechaElejida() {
     console.log("fecha elejida: ")
   }
-  openModal(content) {
-    this.modal.open(content, { size: 'lg' });
+  openModal() {
+    this.modal.open(ModelsmodalComponent, { size: 'lg' });
   }
 
 }
