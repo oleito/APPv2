@@ -18,9 +18,6 @@ export class DashtallerService {
   }
 
   init(ref) {
-    const req = {
-      ref: ref,
-    }
     this.$currentVehicleSubject.next({
       ref: ref,
     });

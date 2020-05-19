@@ -6,7 +6,9 @@
     <label class="mb-0 mt-1">Referencia</label>
     <input type="number" formControlName="referencia" class="form-control form-control-sm" />
   </div>
-  <h2 class="mb-1" *ngIf="inited"><b>Ref: </b>{{ referencia }}</h2>
+  <h2 class="mb-1" *ngIf="inited && referencia"><b>Ref: </b>{{ referencia }}</h2>
+  <h2 class="mb-1" *ngIf="inited && orden"><b>Orden: </b>{{ referencia }}</h2>
+  <h2 class="mb-1" *ngIf="inited && siniestro"><b>Siniestro: </b>{{ referencia }}</h2>
 
   <div class="my-2" *ngIf="!inited">
     <button class="btn btn-sm btn-block btn-success" [disabled]="loading" [disabled]="!referenciasForm.valid">Aceptar</button>

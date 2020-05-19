@@ -27,9 +27,9 @@
   <div class="col">
     <h4 class="text-muted mb-1">OBSERVACIONES</h4>
     <div class="form-group">
-      <textarea class="form-control" rows="2" maxlength="200"></textarea>
+      <textarea class="form-control" rows="2" maxlength="200" [disabled]="!isInited"></textarea>
     </div>
-    <button class="float-right btn btn-sm btn-success mt-1">
+    <button class="float-right btn btn-sm btn-success mt-1" [disabled]="!isInited">
       Agregar
     </button>
   </div>

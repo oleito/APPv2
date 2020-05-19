@@ -11,21 +11,21 @@
         <th>Estado</th>
       </thead>
       <tbody>
-        <tr>
+        <!-- <tr>
           <td>Paragolpes delantero</td>
           <td>Pintar</td>
           <td></td>
           <td>Los Primos</td>
           <td><span class="badge badge-success">En Camino</span></td>
-        </tr>
+        </tr> -->
       </tbody>
     </table>
     <!--  -->
     <div class="input-group">
-      <input type="text" class="form-control form-control-sm" placeholder="Pieza" />
+      <input type="text" class="form-control form-control-sm" placeholder="Pieza" [disabled]="!isInited" />
       <div class="input-group-append">
         <div class="input-group">
-          <select class="form-control form-control-sm">
+          <select class="form-control form-control-sm" [disabled]="!isInited">
             <option selected>Pintar</option>
             <option>Reparar</option>
             <option>Cambiar</option>
@@ -34,16 +34,17 @@
       </div>
       <div class="input-group-append">
         <div class="input-group">
-          <select class="form-control form-control-sm">
+          <select class="form-control form-control-sm" [disabled]="!isInited">
             <option selected></option>
             <option>Int</option>
             <option>Ext</option>
           </select>
         </div>
       </div>
-      <input type="text" class="form-control form-control-sm" placeholder="Proveedor" />
+      <input type="text" class="form-control form-control-sm" placeholder="Proveedor" *ngIf="false" [disabled]="!isInited">
+      <input type="text" class="form-control form-control-sm" placeholder="Codigo" *ngIf="true" [disabled]="!isInited">
     </div>
-    <button class="float-right btn btn-sm btn-success mt-1">
+    <button class="float-right btn btn-sm btn-success mt-1" [disabled]="!isInited">
       Agregar
     </button>
   </div>

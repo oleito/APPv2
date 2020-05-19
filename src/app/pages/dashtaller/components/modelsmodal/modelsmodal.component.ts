@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -15,6 +15,9 @@ export class ModelsmodalComponent implements OnInit {
   closeModelsModal() {
     console.log('Cerrar');
     this.activeModal.close('Close click');
+  }
+  ngOnDestroy() {
+    console.log('modal cerrado');
   }
 
 }

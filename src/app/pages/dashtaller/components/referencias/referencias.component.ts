@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DashtallerService } from '../../services/dashtaller.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { ReferenciasService } from '../../services/referencias.service';
 
 @Component({
   selector: 'app-referencias',
@@ -14,15 +16,21 @@ export class ReferenciasComponent implements OnInit {
   error = false;
 
   referencia: number;
+  orden: number;
+  siniestro: string;
+  subscription: Subscription;
 
   referenciasForm = new FormGroup({
     referencia: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$")]),
   });
 
-  constructor(protected dashtaller: DashtallerService) {
-    this.dashtaller.$currentVehicle.subscribe(data => {
+  constructor(
+    protected dashtallerService: DashtallerService,
+    private referenciaService: ReferenciasService
+  ) {
+    this.subscription = this.dashtallerService.$currentVehicle.subscribe(data => {
+      this.inited = data.ref ? data.ref : false
       this.referencia = data.ref;
-      console.log("ref: ", this.referencia);
     }, err => {
       this.error = true;
       //show toast
@@ -34,12 +42,16 @@ export class ReferenciasComponent implements OnInit {
 
   onSubmit() {
     this.loading = true;
-    this.dashtaller.init(this.referenciasForm.controls.referencia.value);
-    this.inited = true;
+    let res = {
+      data: {
+        referencia: this.referenciasForm.controls.referencia.value
+      }
+    }
+    this.referenciaService.postReferencia(res).subscribe(res => {
+      this.dashtallerService.init(res.data.referencia);
+    })
   }
-
   ngOnDestroy() {
-
+    this.subscription.unsubscribe();
   }
-
 }

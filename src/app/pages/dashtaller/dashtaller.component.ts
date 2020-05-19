@@ -62,11 +62,6 @@ export class DashtallerComponent implements OnInit {
       ]
     }
   ];
-  pieza = [
-    { nombre: '' },
-    { accion: '' },
-    { codigo: '' },
-  ]
 
 
   onDrop(event: CdkDragDrop<any[]>) {
@@ -88,12 +83,18 @@ export class DashtallerComponent implements OnInit {
     console.log(event.container.element.nativeElement.id);
   }
 
-  openMainModal() {
+  openMainModalNew() {
     this.modal.open(MainmodalComponent, { size: 'lg', scrollable: true }).result.then(result => {
-      console.log(result);
     }).catch(err => {
       this.dashTallerService.end();
+    });
+  }
 
+  openMainModalCurrent(referencia) {
+    this.dashTallerService.init(referencia);
+    this.modal.open(MainmodalComponent, { size: 'lg', scrollable: true }).result.then(result => {
+    }).catch(err => {
+      this.dashTallerService.end();
     });
   }
   openModalNuevo() {
