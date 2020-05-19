@@ -1,19 +1,19 @@
 <div class="container-fluid bg-info h-100 w-100 pt-5">
   <div class="row flex-row flex-nowrap" cdkDropListGroup>
-    <div class="col-3 sector-card px-0 mx-2 border-radius" *ngFor="let sector of sectoresv2">
+    <div class="col-3 sector-card px-0 mx-2 border-radius" *ngFor="let sector of vhBySector">
       <div class="card-h text-center bg-light">
         <h2 class="rounded-sm mb-0">{{ sector.sector }}</h2>
       </div>
       <div cdkDropList #moviesList="cdkDropList" [cdkDropListData]="sector.vehiculos" class="movie-list pb-3"
         (cdkDropListDropped)="onDrop($event)" [id]="sector.sector">
-        <div class="list-group-item" *ngFor="let vh of sector.vehiculos" (click)="openMainModalCurrent('1234')"
-          [id]="vh.patente" cdkDrag>
+        <div class="list-group-item" *ngFor="let vh of sector.vehiculos" (click)="openMainModalCurrent(vh.referencia)"
+          [id]="vh.referencia" cdkDrag>
           <h3 class="m-0 p-0"> {{ vh.modelo }} - OWY 301 </h3>
           <h4 class="m-0 p-0">Nombre del cliente</h4>
         </div>
       </div>
       <div class="card-footer">
-        <button class="btn btn-block btn-sm btn-light" (click)="openMainModalNew('2')">+ </button>
+        <button class="btn btn-block btn-sm btn-light" (click)="openMainModalNew()">+ </button>
       </div>
     </div>
   </div>

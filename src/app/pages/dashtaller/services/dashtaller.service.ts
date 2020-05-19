@@ -13,7 +13,7 @@ export class DashtallerService {
 
   $currentVehicle;
 
-  constructor(private dataservice: DataService) {
+  constructor(private dataService: DataService) {
     this.$currentVehicle = this.$currentVehicleSubject.asObservable();
   }
 
@@ -21,12 +21,10 @@ export class DashtallerService {
     this.$currentVehicleSubject.next({
       ref: ref,
     });
-    // this.dataservice.postData('/ordenes', {req}).subscribe(res => {
-    //   let currentVehicle = res.vehicle;
-    //   this.$currentVehicleSubject.next(currentVehicle);
-    // } , err => {
-    //   this.$currentVehicleSubject.error(err);
-    // })
+  }
+
+  getVhBySector() {
+    return this.dataService.getData('sectores/vehiculos');
   }
 
   agregarPiezas(ref, piezas) {
@@ -34,10 +32,6 @@ export class DashtallerService {
       ref: ref,
       piezas: piezas,
     }
-    // this.dataservice.postData('orden/'+ref+'/piezas', {req}).subscribe(res => {
-    //   let currentVehicle = res.vehicle;
-    //   this.$currentVehicleSubject.next(currentVehicle);
-    // })
   }
 
   end() {

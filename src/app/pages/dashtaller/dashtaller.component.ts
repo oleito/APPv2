@@ -15,13 +15,7 @@ import { DashtallerService } from './services/dashtaller.service';
   styleUrls: ['./dashtaller.component.css']
 })
 export class DashtallerComponent implements OnInit {
-
-  constructor(private dashTallerService: DashtallerService, private modal: NgbModal, private calendar: NgbCalendar, config: NgbTimepickerConfig) { }
-
-  ngOnInit(): void {
-  }
-
-  sectoresv2 = [
+ vhBySector = [
     {
       sector: 'Espera Repuestos',
       vehiculos: [
@@ -34,35 +28,12 @@ export class DashtallerComponent implements OnInit {
 
       ]
     },
-    {
-      sector: 'Ingreso',
-      vehiculos: [
-        { modelo: 'Toyota Hilux', patente: '001', color: 'Rojo' },
-        { modelo: 'Fiat Strada', patente: '002', fecha_entrega: '10' }
-      ]
-    },
-    {
-      sector: 'Desarme',
-      vehiculos: [
-        { modelo: 'Chevrolet Corsa', patente: '001' },
-        { modelo: 'Toyota Etios', patente: '002' }
-      ]
-    },
-    {
-      sector: 'Preparacion',
-      vehiculos: [
-        { modelo: 'Peugeot Partner', patente: '003' },
-        { modelo: 'Peugeot 5008', patente: '004' }
-      ]
-    }
-    ,
-    {
-      sector: 'Entrega',
-      vehiculos: [
-      ]
-    }
   ];
+  constructor(private dashTallerService: DashtallerService, private modal: NgbModal, private calendar: NgbCalendar, config: NgbTimepickerConfig) { }
 
+  ngOnInit(): void {
+    this.obtenerVehiculos();
+  }
 
   onDrop(event: CdkDragDrop<any[]>) {
     console.log(event);
@@ -77,10 +48,16 @@ export class DashtallerComponent implements OnInit {
       );
     }
 
-
     console.log(event.item.element.nativeElement.id);
     console.log(event.previousContainer.element.nativeElement.id);
     console.log(event.container.element.nativeElement.id);
+  }
+
+  obtenerVehiculos() {
+    this.dashTallerService.getVhBySector().subscribe(res=>{
+      this.vhBySector=res.data;
+      console.log(this.vhBySector);
+    })
   }
 
   openMainModalNew() {
