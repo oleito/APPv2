@@ -6,11 +6,17 @@
     <h3 class="mb-1"><b>TOYOTA - HILUX</b></h3>
     <div class="row">
       <div class="col-6">
-        <p class="mb-0"><b>Patente: </b>AA123BB</p>
-        <p class="mb-0"><b>VIN: </b>AA1D6S89S523BB</p>
+        <p class="mb-0"><b>Patente: </b>
+          <span *ngIf="datosVehiculo.patente"> {{ datosVehiculo.patente }} </span>
+        </p>
+        <p class="mb-0"><b>VIN: </b>
+          <span *ngIf="datosVehiculo.vin"> {{ datosVehiculo.vin }} </span>
+        </p>
       </div>
       <div class="col-6">
-        <p class="mb-0"><b>Color: </b>Rojo</p>
+        <p class="mb-0"><b>Color: </b>
+          <span *ngIf="datosVehiculo.color"> {{ datosVehiculo.color }} </span>
+        </p>
         <p class="mb-0"><b>Seguro: </b>
           <span *ngIf="datosVehiculo.seguro"> {{ datosVehiculo.seguro }} </span>
         </p>

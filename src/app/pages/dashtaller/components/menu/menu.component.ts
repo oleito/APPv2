@@ -34,7 +34,6 @@ export class MenuComponent implements OnInit {
   ) {
     this.subscription = this.dashtallerService.$currentVehicle.subscribe(data => {
       this.referencia = data.referencia ? data.referencia : false;
-      console.log(data);
       this.idvehiculo = data.idvehiculo ? data.idvehiculo : false;
 
 
@@ -102,19 +101,17 @@ export class MenuComponent implements OnInit {
         color: this.vehiculoForm.controls.color.value,
       }
     }
+    console.log(this.idvehiculo);
     console.log(res);
     //this.loadingSeguro = true;
     this.menuService.putVehiculo(this.idvehiculo, res).subscribe(res => {
-      console.log('put vehiculo res ',res);
+      this.dashtallerService.updateDatosVehiculo('idvehiculo', this.idvehiculo);
+      this.dashtallerService.updateDatosVehiculo('patente', res.data.patente);
+      this.dashtallerService.updateDatosVehiculo('vin', res.data.vin);
+      this.dashtallerService.updateDatosVehiculo('color', res.data.color);
+    }, err => {
+      console.log('putvehiculo ', err);
     })
-    // this.menuService.postSeguro(res).subscribe(res => {
-    //   this.seguros = res.data;
-    //   this.loadingSeguro = false;
-    //   this.vehiculoForm.reset();
-    //   console.log('reset');
-    // }, err => {
-    //   console.log('onSubmitNuevoSeguro() ', err);
-    // })
   }
 
   onSubmitNuevoSeguro(): void {
