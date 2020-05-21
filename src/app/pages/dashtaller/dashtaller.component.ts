@@ -15,7 +15,7 @@ import { DashtallerService } from './services/dashtaller.service';
   styleUrls: ['./dashtaller.component.css']
 })
 export class DashtallerComponent implements OnInit {
- vhBySector = [
+  vhBySector = [
     {
       sector: 'Espera Repuestos',
       vehiculos: [
@@ -54,9 +54,8 @@ export class DashtallerComponent implements OnInit {
   }
 
   obtenerVehiculos() {
-    this.dashTallerService.getVhBySector().subscribe(res=>{
-      this.vhBySector=res.data;
-      console.log(this.vhBySector);
+    this.dashTallerService.getVhBySector().subscribe(res => {
+      this.vhBySector = res.data;
     })
   }
 

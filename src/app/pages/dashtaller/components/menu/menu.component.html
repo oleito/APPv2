@@ -120,19 +120,23 @@
 <ng-template #popContentSeguro>
   <div class="form-group">
     <label for="exampleFormControlSelect1">Seleccione</label>
-    <select class="form-control form-control-sm">
-      <option>La Segunda</option>
-      <option>Triunfo</option>
+    <select [(ngModel)]="seguroSelected" [disabled]="loadingSeguro"class="form-control form-control-sm" (change)="actualizarSeguro()">
+      <option selected></option>
+      <option *ngFor="let s of seguros" [value]="s.Id"> {{ s.Seguro }} </option>
     </select>
   </div>
   <hr />
   <p>
     Si el seguro que buscas no se encuentra, puedes agregar uno nuevo.
   </p>
-  <div class="form-group">
-    <input type="text" class="form-control form-control-sm" placeholder="Seguro..." />
-  </div>
-  <button class="btn btn-sm btn-block btn-success">Agregar</button>
+  <form [formGroup]="nuevoSeguroForm" (ngSubmit)="onSubmitNuevoSeguro()">
+    <div class="form-group">
+      <input type="text" class="form-control form-control-sm" formControlName="nuevoSeguro" placeholder="Seguro..." />
+    </div>
+    <button class="btn btn-sm btn-block btn-success"
+      [disabled]="!nuevoSeguroForm.valid || loadingSeguro">Agregar</button>
+  </form>
+
 </ng-template>
 
 <!-- MENU FOTOS -->

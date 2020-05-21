@@ -10,10 +10,12 @@ import { DashtallerService } from '../../services/dashtaller.service';
 export class DatosComponent implements OnInit {
   subscription: Subscription
   isInited = false;
+  datosVehiculo;
 
   constructor(protected dashtaller: DashtallerService) {
     this.subscription = this.dashtaller.$currentVehicle.subscribe(data => {
-      this.isInited = data.ref ? data.ref : false
+      this.isInited = data.referencia ? data.referencia : false;
+      this.datosVehiculo = data;
     }, err => {
       this.isInited = false;
       //show toast

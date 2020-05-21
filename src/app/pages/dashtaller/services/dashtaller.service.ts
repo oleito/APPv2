@@ -8,36 +8,51 @@ import { BehaviorSubject } from 'rxjs';
 export class DashtallerService {
 
   private $currentVehicleSubject: BehaviorSubject<any> = new BehaviorSubject<any>({
-    ref: null
+    referencia: null
   });
 
   $currentVehicle;
+  vehiculo = {
+    referencia: false,
+    seguro: null,
+  }
 
   constructor(private dataService: DataService) {
     this.$currentVehicle = this.$currentVehicleSubject.asObservable();
   }
 
-  init(ref) {
-    this.$currentVehicleSubject.next({
-      ref: ref,
-    });
+  init(referencia) {
+    this.vehiculo.referencia = referencia;
+    this.$currentVehicleSubject.next(
+      this.vehiculo
+    );
   }
+
+  updateDatosVehiculo(prop, data) {
+    this.vehiculo[prop] = data;
+    this.$currentVehicleSubject.next(
+      this.vehiculo
+    );
+  }
+
+  obtenerDatosVehiculo(referencia) {
+    this.getDetalleOrden(referencia).subscribe(res => {
+      this.$currentVehicleSubject.next(res.data);
+    })
+  }
+  getDetalleOrden(referencia) {
+    return this.dataService.getData('ordenes/' + referencia);
+  }
+
 
   getVhBySector() {
     return this.dataService.getData('sectores/vehiculos');
   }
 
-  agregarPiezas(ref, piezas) {
-    const req = {
-      ref: ref,
-      piezas: piezas,
-    }
-  }
-
   end() {
     console.log(this.$currentVehicle);
     this.$currentVehicleSubject.next({
-      ref: null,
+      referencia: null,
     })
   }
 }

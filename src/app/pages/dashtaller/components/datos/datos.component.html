@@ -11,7 +11,9 @@
       </div>
       <div class="col-6">
         <p class="mb-0"><b>Color: </b>Rojo</p>
-        <p class="mb-0"><b>Seguro: </b>La Segunda</p>
+        <p class="mb-0"><b>Seguro: </b>
+          <span *ngIf="datosVehiculo.seguro"> {{ datosVehiculo.seguro }} </span>
+        </p>
       </div>
     </div>
   </div>

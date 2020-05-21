@@ -29,8 +29,8 @@ export class ReferenciasComponent implements OnInit {
     private referenciaService: ReferenciasService
   ) {
     this.subscription = this.dashtallerService.$currentVehicle.subscribe(data => {
-      this.inited = data.ref ? data.ref : false
-      this.referencia = data.ref;
+      this.inited = data.referencia ? data.referencia : false
+      this.referencia = data.referencia;
     }, err => {
       this.error = true;
       //show toast

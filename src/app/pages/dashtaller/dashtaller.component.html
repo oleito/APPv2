@@ -8,7 +8,7 @@
         (cdkDropListDropped)="onDrop($event)" [id]="sector.sector">
         <div class="list-group-item" *ngFor="let vh of sector.vehiculos" (click)="openMainModalCurrent(vh.referencia)"
           [id]="vh.referencia" cdkDrag>
-          <h3 class="m-0 p-0"> {{ vh.modelo }} - OWY 301 </h3>
+          <h3 class="m-0 p-0"> {{ vh.referencia }} - OWY 301 </h3>
           <h4 class="m-0 p-0">Nombre del cliente</h4>
         </div>
       </div>
