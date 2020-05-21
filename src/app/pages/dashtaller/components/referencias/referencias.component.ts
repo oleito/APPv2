@@ -48,7 +48,7 @@ export class ReferenciasComponent implements OnInit {
       }
     }
     this.referenciaService.postReferencia(res).subscribe(res => {
-      this.dashtallerService.init(res.data.referencia);
+      this.dashtallerService.init(res.data);
     })
   }
   ngOnDestroy() {

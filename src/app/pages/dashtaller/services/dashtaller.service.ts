@@ -14,6 +14,7 @@ export class DashtallerService {
   $currentVehicle;
   vehiculo = {
     referencia: false,
+    idvehiculo: null,
     seguro: null,
   }
 
@@ -21,8 +22,9 @@ export class DashtallerService {
     this.$currentVehicle = this.$currentVehicleSubject.asObservable();
   }
 
-  init(referencia) {
-    this.vehiculo.referencia = referencia;
+  init(data) {
+    this.vehiculo.referencia = data.referencia;
+    this.vehiculo.idvehiculo = data.idvehiculo;
     this.$currentVehicleSubject.next(
       this.vehiculo
     );
@@ -38,6 +40,8 @@ export class DashtallerService {
   obtenerDatosVehiculo(referencia) {
     this.getDetalleOrden(referencia).subscribe(res => {
       this.$currentVehicleSubject.next(res.data);
+    }, err => {
+      console.log('obtenerDatosVehiculo() ', err)
     })
   }
   getDetalleOrden(referencia) {

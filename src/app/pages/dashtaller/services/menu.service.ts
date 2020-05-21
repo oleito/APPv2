@@ -23,4 +23,11 @@ export class MenuService {
     }
     return this.dataService.putData('ordenes/' + ref, res);
   }
+  putVehiculo(idvehiculo, datos) {
+    return this.dataService.putData('vehiculos/' + idvehiculo, datos)
+  }
+
+  putOrdenVehiculo(ref, data) {
+    return this.dataService.putData('ordenes/' + ref, data);
+  }
 }

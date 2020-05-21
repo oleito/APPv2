@@ -67,7 +67,7 @@ export class DashtallerComponent implements OnInit {
   }
 
   openMainModalCurrent(referencia) {
-    this.dashTallerService.init(referencia);
+    this.dashTallerService.init({ referencia: referencia });
     this.modal.open(MainmodalComponent, { size: 'lg', scrollable: true }).result.then(result => {
     }).catch(err => {
       this.dashTallerService.end();

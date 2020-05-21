@@ -15,13 +15,15 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class MenuComponent implements OnInit {
 
   seguros = [];
+  seguroSelected;
 
   loadingSeguro = false;
 
-  isInited = false;
+  referencia = false;
+  idvehiculo;
+
   error = false;
 
-  seguroSelected;
 
   subscription: Subscription;
 
@@ -31,7 +33,11 @@ export class MenuComponent implements OnInit {
     private menuService: MenuService
   ) {
     this.subscription = this.dashtallerService.$currentVehicle.subscribe(data => {
-      this.isInited = data.referencia ? data.referencia : false;
+      this.referencia = data.referencia ? data.referencia : false;
+      console.log(data);
+      this.idvehiculo = data.idvehiculo ? data.idvehiculo : false;
+
+
     }, err => {
       this.error = true;
       //show toast
@@ -40,6 +46,12 @@ export class MenuComponent implements OnInit {
 
   nuevoSeguroForm = new FormGroup({
     nuevoSeguro: new FormControl('', Validators.required),
+  })
+
+  vehiculoForm = new FormGroup({
+    patente: new FormControl('', Validators.required),
+    vin: new FormControl('', Validators.required),
+    color: new FormControl('', Validators.required),
   })
 
   ngOnInit(): void {
@@ -62,30 +74,47 @@ export class MenuComponent implements OnInit {
 
   obtenerSeguros(): void {
     this.menuService.getSeguros().subscribe(res => {
-      console.log(res.data);
       this.seguros = res.data;
     }, err => {
-      console.log(err);
+      console.log('obtenerSeguros() ', err);
     })
   }
 
-
   actualizarSeguro() {
     this.loadingSeguro = true;
-    this.menuService.putOrdenSeguro(this.isInited, this.seguroSelected).subscribe(res => {
-      console.log(res.data);
-
+    this.menuService.putOrdenSeguro(this.referencia, this.seguroSelected).subscribe(res => {
       const seguroFila = this.seguros.find(seguro => {
         return seguro.Id === this.seguroSelected;
       })
-
       this.dashtallerService.updateDatosVehiculo('seguro', seguroFila.Seguro);
-
       this.loadingSeguro = false;
     }, err => {
-      console.log(err);
+      console.log('actualizarSeguro() ', err);
       this.loadingSeguro = false
     })
+  }
+
+  onSubmitVehiculo(): void {
+    let res = {
+      data: {
+        patente: this.vehiculoForm.controls.patente.value,
+        vin: this.vehiculoForm.controls.vin.value,
+        color: this.vehiculoForm.controls.color.value,
+      }
+    }
+    console.log(res);
+    //this.loadingSeguro = true;
+    this.menuService.putVehiculo(this.idvehiculo, res).subscribe(res => {
+      console.log('put vehiculo res ',res);
+    })
+    // this.menuService.postSeguro(res).subscribe(res => {
+    //   this.seguros = res.data;
+    //   this.loadingSeguro = false;
+    //   this.vehiculoForm.reset();
+    //   console.log('reset');
+    // }, err => {
+    //   console.log('onSubmitNuevoSeguro() ', err);
+    // })
   }
 
   onSubmitNuevoSeguro(): void {
@@ -101,7 +130,7 @@ export class MenuComponent implements OnInit {
       this.nuevoSeguroForm.reset();
       console.log('reset');
     }, err => {
-      console.log(err);
+      console.log('onSubmitNuevoSeguro() ', err);
     })
   }
 
