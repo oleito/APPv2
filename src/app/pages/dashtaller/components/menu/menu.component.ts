@@ -125,9 +125,9 @@ export class MenuComponent implements OnInit {
       this.seguros = res.data;
       this.loadingSeguro = false;
       this.nuevoSeguroForm.reset();
-      console.log('reset');
     }, err => {
       console.log('onSubmitNuevoSeguro() ', err);
+      this.loadingSeguro = false;
     })
   }
 

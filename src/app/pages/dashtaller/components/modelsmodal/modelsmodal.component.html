@@ -11,49 +11,50 @@
     <div class="row">
       <div class="col-4">
         <h4>MARCA</h4>
-        <div class="input-group">
-          <input type="text" class="form-control form-control-sm" placeholder="Marca">
-          <div class="input-group-append">
-            <button class="btn btn-success btn-sm" type="button">+</button>
+        <form [formGroup]="marcaForm" (ngSubmit)="onSubmitMarca()">
+          <div class="input-group">
+            <input formControlName="marca" type="text" class="form-control form-control-sm" placeholder="Marca">
+            <div class="input-group-append">
+              <button class="btn btn-success btn-sm" [disabled]="!marcaForm.valid  || loadingMarca">+</button>
+            </div>
           </div>
-        </div>
+        </form>
         <table class="table table-hover table-sm">
           <tbody>
-            <tr>
-              <td>Peugeot</td>
-            </tr>
-            <tr>
-              <td>Citroen</td>
+            <tr *ngFor="let m of marcas" (click)="selectMarca(m.Id)"
+              [ngClass]=" {'current-marca border' : currentMarca === m.Id}">
+              <td> {{ m.Marca }} </td>
             </tr>
           </tbody>
         </table>
       </div>
       <div class="col-4">
         <h4>MODELO</h4>
-        <div class="input-group">
-          <input type="text" class="form-control form-control-sm " placeholder="Modelo">
-          <div class="input-group-append">
-            <button class="btn btn-success btn-sm" type="button">+</button>
+        <form [formGroup]="modeloForm" (ngSubmit)="onSubmitModelo()">
+          <div class="input-group">
+            <input formControlName="modelo" type="text" class="form-control form-control-sm" placeholder="Modelo">
+            <div class="input-group-append">
+              <button class="btn btn-success btn-sm" [disabled]="!modeloForm.valid  || loadingModelo">+</button>
+            </div>
           </div>
-        </div>
+        </form>
         <table class="table table-hover table-sm">
           <tbody>
-            <tr>
-              <td>307 Allure</td>
-            </tr>
-            <tr>
-              <td>Partner patagonica</td>
+            <tr *ngFor="let m of modelos" (click)="selectModelo(m.Id)"
+              [ngClass]=" {'current-modelo border' : currentModelo === m.Id}">
+              <td> {{ m.Modelo }} </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div class="col-4">
+      <div class=" col-4">
         <h4>CARROCERIA</h4>
         <div class="input-group">
+          <!-- <select class="form-control form-control-sm" [disabled]="loadingCarrocerias"> -->
           <select class="form-control form-control-sm">
-            <option selected>Staton Wagon</option>
-            <option>Coupe</option>
-            <option>Cambiar</option>
+            <option [selected]='currentCarroceria===null'></option>
+            <option *ngFor="let c of carrocerias" [value]='c.Id' [selected]='currentCarroceria===c.Id'> {{c.Tipo}}
+            </option>
           </select>
         </div>
         <img src="https://via.placeholder.com/235x160" class="img img-fluid mt-3">
@@ -61,7 +62,7 @@
     </div>
     <div class="row">
       <div class="col">
-        <button class="float-right btn btn-sm btn-success mt-5">
+        <button (click)="confirmar()" class="float-right btn btn-sm btn-success mt-5">
           Confirmar
         </button>
       </div>
@@ -69,7 +70,7 @@
   </div>
 
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark">Salir</button>
+    <button type="button" class="btn btn-outline-dark" (click)="closeModelsModal()">Salir</button>
   </div>
 
 </div>

@@ -32,6 +32,7 @@ export class DashtallerService {
 
   updateDatosVehiculo(prop, data) {
     this.vehiculo[prop] = data;
+    console.log('udatedatosvehiculo. ', this.vehiculo);
     this.$currentVehicleSubject.next(
       this.vehiculo
     );
@@ -41,7 +42,8 @@ export class DashtallerService {
   obtenerDatosVehiculo(referencia) {
     this.getDetalleOrden(referencia).subscribe(res => {
       console.log('detalle orden', res.data)
-      this.$currentVehicleSubject.next(res.data);
+      this.vehiculo = res.data;
+      this.$currentVehicleSubject.next(this.vehiculo);
     }, err => {
       console.log('getDetalleOrden() ', err)
     })
