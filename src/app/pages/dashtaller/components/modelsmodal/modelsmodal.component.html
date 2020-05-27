@@ -50,19 +50,19 @@
       <div class=" col-4">
         <h4>CARROCERIA</h4>
         <div class="input-group">
-          <!-- <select class="form-control form-control-sm" [disabled]="loadingCarrocerias"> -->
-          <select class="form-control form-control-sm">
+          <select [(ngModel)]="selectCarroceria" class="form-control form-control-sm" [disabled]="loadingCarrocerias"
+            (ngModelChange)="carroceriaChangued()">
             <option [selected]='currentCarroceria===null'></option>
             <option *ngFor="let c of carrocerias" [value]='c.Id' [selected]='currentCarroceria===c.Id'> {{c.Tipo}}
             </option>
           </select>
         </div>
-        <img src="https://via.placeholder.com/235x160" class="img img-fluid mt-3">
+        <img [src]="currentCarroceriaImg" class="img img-fluid mt-3">
       </div>
     </div>
     <div class="row">
       <div class="col">
-        <button (click)="confirmar()" class="float-right btn btn-sm btn-success mt-5">
+        <button (click)="confirmar()" [disabled]="!canUpdate" class="float-right btn btn-sm btn-success mt-5">
           Confirmar
         </button>
       </div>

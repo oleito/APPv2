@@ -6,6 +6,7 @@ import { isNumber } from 'util';
 import { Subscription } from 'rxjs';
 import { MenuService } from '../../services/menu.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ModelsmodalService } from '../../services/modelsmodal.service';
 
 @Component({
   selector: 'app-menu',
@@ -13,7 +14,16 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
+  /**modelo */
+  marcas;
+  modelos;
+  currentMarca = null;
+  currentModelo = null;
+  loadingMarca = true;
+  loadingModelo = true;
+  canUpdate = false;
 
+  /**seguros */
   seguros = [];
   seguroSelected;
 
@@ -24,19 +34,17 @@ export class MenuComponent implements OnInit {
 
   error = false;
 
-
   subscription: Subscription;
 
   constructor(
     private modal: NgbModal,
     private dashtallerService: DashtallerService,
-    private menuService: MenuService
+    private menuService: MenuService,
+    private modelsmodalService: ModelsmodalService
   ) {
     this.subscription = this.dashtallerService.$currentVehicle.subscribe(data => {
       this.referencia = data.referencia ? data.referencia : false;
       this.idvehiculo = data.idvehiculo ? data.idvehiculo : false;
-
-
     }, err => {
       this.error = true;
       //show toast
@@ -103,7 +111,6 @@ export class MenuComponent implements OnInit {
     }
     console.log(this.idvehiculo);
     console.log(res);
-    //this.loadingSeguro = true;
     this.menuService.putVehiculo(this.idvehiculo, res).subscribe(res => {
       this.dashtallerService.updateDatosVehiculo('idvehiculo', this.idvehiculo);
       this.dashtallerService.updateDatosVehiculo('patente', res.data.patente);
@@ -131,8 +138,52 @@ export class MenuComponent implements OnInit {
     })
   }
 
-  obtenerMarcas(): void { }
+  /** Cargadores */
+  obtenerMarcas() {
+    this.loadingMarca = true;
+    this.modelsmodalService.getMarcas().subscribe(res => {
+      this.marcas = res.data;
+      this.loadingMarca = false;
+    }, err => {
+      console.log('Get marcas ', err)
+      this.loadingMarca = false;
+    })
+  }
 
-  obtenerModelos(): void { }
+  obtenerModelos(marca) {
+    this.loadingModelo = true;
+    this.modelsmodalService.getModelos(marca).subscribe(res => {
+      this.modelos = res.data;
+      this.loadingModelo = false;
+    }, err => {
+      console.log('Get marcas ', err)
+      this.loadingModelo = false;
+    })
+  }
 
+  /** Actuadores */
+  selectMarca(idMarca) {
+    this.loadingModelo = true;
+    this.currentMarca = idMarca;
+    this.obtenerModelos(this.currentMarca);
+    this.canUpdate = false;
+  }
+
+  selectModelo(idModelo) {
+    this.currentModelo = idModelo;
+    const modelo = this.modelos.find(modelo => {
+      return modelo.Id === idModelo;
+    })
+    this.canUpdate = false;
+    // this.currentCarroceria = modelo.Tipo;
+    // this.updateImg(this.currentCarroceria);
+    // this.loadingCarrocerias = false;
+  }
+
+  updateImg(idCarroceria) {
+    // const carroceria = this.carrocerias.find(tipo => {
+    //   return tipo.Id === idCarroceria;
+    // });
+    // this.currentCarroceriaImg = idCarroceria == null ? this.defImg : carroceria.Img;
+  }
 }

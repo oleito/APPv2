@@ -22,6 +22,13 @@ export class ModelsmodalService {
     return this.dataService.postData('marcas/' + marca + '/modelos', nuevoModelo);
   }
 
+
+  putModelo(marca, modelo) {
+    return this.dataService.putData('marcas/' + marca + '/modelos/' + modelo.Id, modelo);
+    //no se como seguir
+    //definir como modificar los modelos, por mrarca o ID
+    //return this.dataService.putData();
+  }
   getCarrocerias() {
     return this.dataService.getData('tipos');
   }

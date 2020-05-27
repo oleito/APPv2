@@ -17,11 +17,18 @@ export class ModelsmodalComponent implements OnInit {
   loadingModelo = true;
   loadingCarrocerias = true;
 
+  canUpdate = false;
+
   readyToConfirm = false;
 
   currentMarca: number;
   currentModelo: number;
   currentCarroceria: number;
+
+  selectCarroceria;
+
+  defImg = 'https://via.placeholder.com/350x220';
+  currentCarroceriaImg = 'https://via.placeholder.com/350x220';
 
   marcaForm = new FormGroup({
     marca: new FormControl('', Validators.required),
@@ -41,7 +48,12 @@ export class ModelsmodalComponent implements OnInit {
   ngOnDestroy() {
     console.log('modal cerrado');
   }
+  closeModelsModal() {
+    console.log('Cerrar');
+    this.activeModal.close('Close click');
+  }
 
+  /** Formularios */
   onSubmitMarca(): void {
     this.loadingMarca = true;
     let res = {
@@ -76,9 +88,13 @@ export class ModelsmodalComponent implements OnInit {
     })
   }
 
-  closeModelsModal() {
-    console.log('Cerrar');
-    this.activeModal.close('Close click');
+  /** Cargadores */
+  obtenerCarrocerias() {
+    this.modelsmodalService.getCarrocerias().subscribe(res => {
+      this.carrocerias = res.data;
+    }, err => {
+      console.log('getCarrocerias: ', err);
+    })
   }
 
   obtenerMarcas() {
@@ -102,36 +118,54 @@ export class ModelsmodalComponent implements OnInit {
     })
   }
 
-  obtenerCarrocerias() {
-    this.modelsmodalService.getCarrocerias().subscribe(res => {
-      this.carrocerias = res.data;
-    }, err => {
-      console.log('getCarrocerias: ', err);
-    })
-  }
 
+  /** Actuadores */
   selectMarca(idMarca) {
     this.loadingModelo = true;
     this.currentMarca = idMarca;
     this.obtenerModelos(this.currentMarca);
+    this.canUpdate = false;
   }
 
   selectModelo(idModelo) {
     this.currentModelo = idModelo;
-    console.log('Selected modelo', this.currentModelo);
-
-
-    const seguroFila = this.modelos.find(modelo => {
+    const modelo = this.modelos.find(modelo => {
       return modelo.Id === idModelo;
     })
+    this.currentCarroceria = modelo.Tipo;
+    this.updateImg(this.currentCarroceria);
+    this.canUpdate = false;
+    this.loadingCarrocerias = false;
+  }
 
-    this.currentCarroceria = seguroFila.Tipo;
+  updateImg(idCarroceria) {
+    const carroceria = this.carrocerias.find(tipo => {
+      return tipo.Id === idCarroceria;
+    });
+    this.currentCarroceriaImg = idCarroceria == null ? this.defImg : carroceria.Img;
+  }
 
+  carroceriaChangued() {
+    console.log(this.selectCarroceria);
+    this.selectCarroceria === this.currentCarroceria ? this.canUpdate = false : this.canUpdate = true;
   }
 
   confirmar() {
-    console.log(this.marcas);
-    console.log(this.modelos);
+    this.canUpdate = false;
+    this.loadingCarrocerias = true;
+    let modelo = this.modelos.find(modelo => {
+      return modelo.Id === this.currentModelo;
+    })
+    modelo.Tipo = this.selectCarroceria;
+    console.log(modelo);
+    this.modelsmodalService.putModelo(this.currentMarca, modelo).subscribe(res => {
+      this.modelos = res.data;
+      this.loadingCarrocerias = false;
+      this.currentCarroceria = this.selectCarroceria;
+    }, err => {
+      console.log('putModelo', err);
+      this.loadingCarrocerias = false;
+    })
   }
 
 }
