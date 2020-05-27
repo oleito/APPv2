@@ -15,6 +15,7 @@ export class MenuService {
     console.log('datos post seguro: ', data);
     return this.dataService.postData('seguros', data);
   }
+
   putOrdenSeguro(ref, seguro) {
     let res = {
       data: {
@@ -23,6 +24,7 @@ export class MenuService {
     }
     return this.dataService.putData('ordenes/' + ref, res);
   }
+
   putVehiculo(idvehiculo, datos) {
     return this.dataService.putData('vehiculos/' + idvehiculo, datos)
   }
@@ -30,4 +32,6 @@ export class MenuService {
   putOrdenVehiculo(ref, data) {
     return this.dataService.putData('ordenes/' + ref, data);
   }
+
+
 }

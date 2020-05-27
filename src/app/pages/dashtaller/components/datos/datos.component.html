@@ -3,7 +3,7 @@
   <div class="col">
     <h4 class="text-muted mb-1">DATOS DEL VEHICULO</h4>
     <hr class="mt-0" />
-    <h3 class="mb-1"><b>TOYOTA - HILUX</b></h3>
+    <h3 class="mb-1"><b><span *ngIf="datosVehiculo.marca"> {{ datosVehiculo.marca }} </span> - <span *ngIf="datosVehiculo.modelo"> {{ datosVehiculo.modelo }} </span></b></h3>
     <div class="row">
       <div class="col-6">
         <p class="mb-0"><b>Patente: </b>

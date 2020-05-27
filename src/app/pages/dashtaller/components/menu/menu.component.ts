@@ -17,11 +17,17 @@ export class MenuComponent implements OnInit {
   /**modelo */
   marcas;
   modelos;
+  carrocerias;
   currentMarca = null;
   currentModelo = null;
-  loadingMarca = true;
-  loadingModelo = true;
+  loadingMarcas = true;
+  loadingModelos = true;
   canUpdate = false;
+  selectedMarca;
+  selectedModelo;
+
+  defImg = 'https://via.placeholder.com/350x220';
+  currentCarroceriaImg = this.defImg;
 
   /**seguros */
   seguros = [];
@@ -63,6 +69,8 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerSeguros();
+    this.obtenerMarcas();
+    this.obtenerCarrocerias();
   }
   model: NgbDateStruct;
   date: { year: number, month: number };
@@ -79,28 +87,7 @@ export class MenuComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
-  obtenerSeguros(): void {
-    this.menuService.getSeguros().subscribe(res => {
-      this.seguros = res.data;
-    }, err => {
-      console.log('obtenerSeguros() ', err);
-    })
-  }
-
-  actualizarSeguro() {
-    this.loadingSeguro = true;
-    this.menuService.putOrdenSeguro(this.referencia, this.seguroSelected).subscribe(res => {
-      const seguroFila = this.seguros.find(seguro => {
-        return seguro.Id === this.seguroSelected;
-      })
-      this.dashtallerService.updateDatosVehiculo('seguro', seguroFila.Seguro);
-      this.loadingSeguro = false;
-    }, err => {
-      console.log('actualizarSeguro() ', err);
-      this.loadingSeguro = false
-    })
-  }
-
+  /** VEHICULO */
   onSubmitVehiculo(): void {
     let res = {
       data: {
@@ -121,6 +108,27 @@ export class MenuComponent implements OnInit {
     })
   }
 
+  /** SEGUROS */
+  obtenerSeguros(): void {
+    this.menuService.getSeguros().subscribe(res => {
+      this.seguros = res.data;
+    }, err => {
+      console.log('obtenerSeguros() ', err);
+    })
+  }
+  actualizarSeguro() {
+    this.loadingSeguro = true;
+    this.menuService.putOrdenSeguro(this.referencia, this.seguroSelected).subscribe(res => {
+      const seguroFila = this.seguros.find(seguro => {
+        return seguro.Id === this.seguroSelected;
+      })
+      this.dashtallerService.updateDatosVehiculo('seguro', seguroFila.Seguro);
+      this.loadingSeguro = false;
+    }, err => {
+      console.log('actualizarSeguro() ', err);
+      this.loadingSeguro = false
+    })
+  }
   onSubmitNuevoSeguro(): void {
     let res = {
       data: {
@@ -138,52 +146,81 @@ export class MenuComponent implements OnInit {
     })
   }
 
-  /** Cargadores */
+  /** MODELO */
   obtenerMarcas() {
-    this.loadingMarca = true;
+    this.loadingMarcas = true;
     this.modelsmodalService.getMarcas().subscribe(res => {
       this.marcas = res.data;
-      this.loadingMarca = false;
+      this.loadingMarcas = false;
     }, err => {
       console.log('Get marcas ', err)
-      this.loadingMarca = false;
+      this.loadingMarcas = false;
     })
   }
-
+  obtenerCarrocerias() {
+    this.modelsmodalService.getCarrocerias().subscribe(res => {
+      this.carrocerias = res.data;
+    }, err => {
+      console.log('getCarrocerias: ', err);
+    })
+  }
   obtenerModelos(marca) {
-    this.loadingModelo = true;
+    this.loadingModelos = true;
     this.modelsmodalService.getModelos(marca).subscribe(res => {
       this.modelos = res.data;
-      this.loadingModelo = false;
+      this.loadingModelos = false;
     }, err => {
-      console.log('Get marcas ', err)
-      this.loadingModelo = false;
+      console.log('Get modelos ', err)
+      this.loadingModelos = false;
     })
   }
 
   /** Actuadores */
-  selectMarca(idMarca) {
-    this.loadingModelo = true;
-    this.currentMarca = idMarca;
+  selectMarca() {
+    this.loadingModelos = true;
+    this.currentMarca = this.selectedMarca;
     this.obtenerModelos(this.currentMarca);
     this.canUpdate = false;
+    this.selectedModelo = null;
   }
-
-  selectModelo(idModelo) {
-    this.currentModelo = idModelo;
+  selectModelo() {
     const modelo = this.modelos.find(modelo => {
-      return modelo.Id === idModelo;
+      return modelo.Id === this.selectedModelo;
     })
-    this.canUpdate = false;
-    // this.currentCarroceria = modelo.Tipo;
-    // this.updateImg(this.currentCarroceria);
-    // this.loadingCarrocerias = false;
+    console.clear();
+    console.log(modelo);
+    this.updateImg(modelo.Tipo);
+    this.canUpdate = true;
+  }
+  updateImg(idCarroceria) {
+    const carroceria = this.carrocerias.find(carroceria => {
+      return carroceria.Id === idCarroceria;
+    });
+    this.currentCarroceriaImg = idCarroceria == null ? this.defImg : carroceria.Img;
   }
 
-  updateImg(idCarroceria) {
-    // const carroceria = this.carrocerias.find(tipo => {
-    //   return tipo.Id === idCarroceria;
-    // });
-    // this.currentCarroceriaImg = idCarroceria == null ? this.defImg : carroceria.Img;
+  updateModelo() {
+    this.canUpdate = false;
+    this.loadingMarcas = true;
+    this.loadingModelos = true;
+    let res = {
+      data: {
+        idModelo: this.selectedModelo,
+      }
+    }
+    this.menuService.putVehiculo(this.idvehiculo, res).subscribe(res => {
+      const modelo = this.modelos.find(modelo => {
+        return modelo.Id === this.selectedModelo;
+      })
+      const marca = this.marcas.find(marca => {
+        return marca.Id === this.selectedMarca;
+      })
+      this.dashtallerService.updateDatosVehiculo('modelo', modelo.Modelo);
+      this.dashtallerService.updateDatosVehiculo('marca', marca.Marca);
+      this.loadingMarcas = false;
+      this.loadingModelos = false;
+    }, err => {
+      console.log('putVehiculo', err);
+    });
   }
 }

@@ -57,45 +57,46 @@
 <!-- POP VEHICULO -->
 <ng-template #popContentVehiculo>
   <form [formGroup]="vehiculoForm" (ngSubmit)="onSubmitVehiculo()">
-      <div class="form-group mb-0">
-        <label class="mb-0 mt-1">Patente</label>
-        <input type="text" class="form-control form-control-sm" formControlName="patente"/>
-      </div>
-      <div class="form-group mb-0">
-        <label class="mb-0 mt-1">VIN</label>
-        <input type="text" class="form-control form-control-sm" formControlName="vin"/>
-      </div>
-      <div class="form-group mb-0">
-        <label class="mb-0 mt-1">Color</label>
-        <input type="text" class="form-control form-control-sm" formControlName="color"/>
-      </div>
-      <div class="my-2">
-        <button class="btn btn-sm btn-block btn-success">Aceptar</button>
-      </div>
-    </form>
+    <div class="form-group mb-0">
+      <label class="mb-0 mt-1">Patente</label>
+      <input type="text" class="form-control form-control-sm" formControlName="patente" />
+    </div>
+    <div class="form-group mb-0">
+      <label class="mb-0 mt-1">VIN</label>
+      <input type="text" class="form-control form-control-sm" formControlName="vin" />
+    </div>
+    <div class="form-group mb-0">
+      <label class="mb-0 mt-1">Color</label>
+      <input type="text" class="form-control form-control-sm" formControlName="color" />
+    </div>
+    <div class="my-2">
+      <button class="btn btn-sm btn-block btn-success">Aceptar</button>
+    </div>
+  </form>
 </ng-template>
 
 <!-- POP MODELO -->
 <ng-template #popContentModelo>
   <div class="form-group mb-0">
     <label>Marca</label>
-    <select class="form-control form-control-sm" id="exampleFormControlSelect1">
-      <option>Ford</option>
-      <option>Fiat</option>
+    <select [(ngModel)]="selectedMarca" class="form-control form-control-sm" [disabled]="loadingMarcas"
+      (ngModelChange)="selectMarca()">
+      <option *ngFor="let m of marcas" [value]="m.Id"> {{ m.Marca }} </option>
     </select>
   </div>
   <div class="form-group mb-0">
     <label>Modelo</label>
-    <select class="form-control form-control-sm" id="exampleFormControlSelect1">
-      <option>Falcon</option>
-      <option>Fiesta Max</option>
+    <select [(ngModel)]="selectedModelo" class="form-control form-control-sm" [disabled]="loadingModelos"
+      (ngModelChange)="selectModelo()">
+      <option [selected]='selectedModelo === null'></option>
+      <option *ngFor="let m of modelos" [value]="m.Id"> {{ m.Modelo }} </option>
     </select>
   </div>
   <hr />
-  <img class="img img-fluid img-mini-modelo" src="https://via.placeholder.com/250x120" />
+  <img [src]="currentCarroceriaImg" class="img img-fluid img-mini-modelo">
   <div class="row my-2">
     <div class="col-6">
-      <button class="btn btn-sm btn-block btn-success">Aceptar</button>
+      <button (click)="updateModelo()" class="btn btn-sm btn-block btn-success" [disabled]="!canUpdate">Aceptar</button>
     </div>
   </div>
   <a (click)="openModal()">Admin. avanzada</a>
@@ -122,7 +123,8 @@
 <ng-template #popContentSeguro>
   <div class="form-group">
     <label for="exampleFormControlSelect1">Seleccione</label>
-    <select [(ngModel)]="seguroSelected" [disabled]="loadingSeguro"class="form-control form-control-sm" (change)="actualizarSeguro()">
+    <select [(ngModel)]="seguroSelected" [disabled]="loadingSeguro" class="form-control form-control-sm"
+      (change)="actualizarSeguro()">
       <option selected></option>
       <option *ngFor="let s of seguros" [value]="s.Id"> {{ s.Seguro }} </option>
     </select>

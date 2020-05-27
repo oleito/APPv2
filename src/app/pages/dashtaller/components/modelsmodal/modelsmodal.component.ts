@@ -28,7 +28,7 @@ export class ModelsmodalComponent implements OnInit {
   selectCarroceria;
 
   defImg = 'https://via.placeholder.com/350x220';
-  currentCarroceriaImg = 'https://via.placeholder.com/350x220';
+  currentCarroceriaImg = this.defImg;
 
   marcaForm = new FormGroup({
     marca: new FormControl('', Validators.required),
