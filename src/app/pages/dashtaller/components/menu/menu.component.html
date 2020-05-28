@@ -107,15 +107,15 @@
   <div class="mt-2 px-2">
     <div class="form-group">
       <div class="input-group">
-        <input class="form-control form-control-sm" placeholder="yyyy-mm-dd" name="dp" />
+        <input class="form-control form-control-sm" placeholder="yyyy-mm-dd"/>
         <input type="time" class="form-control form-control-sm" />
       </div>
     </div>
   </div>
   <div class="d-flex justify-content-center">
-    <ngb-datepicker class="mx-auto" #dp (navigate)="date = $event.next" dateSelect="fechaElejida()">
-    </ngb-datepicker>
+    <ngb-datepicker #d1 [(ngModel)]="date" #c1="ngModel"></ngb-datepicker>
   </div>
+  <pre>Model: {{ date | json }}</pre>
   <button class="btn btn-sm btn-block btn-success ">Aceptar</button>
 </ng-template>
 
@@ -140,7 +140,6 @@
     <button class="btn btn-sm btn-block btn-success"
       [disabled]="!nuevoSeguroForm.valid || loadingSeguro">Agregar</button>
   </form>
-
 </ng-template>
 
 <!-- MENU FOTOS -->
@@ -151,7 +150,6 @@
   </div>
   <hr />
   <div>
-
     <img src="https://via.placeholder.com/40" alt="img img-thumbnail">
     <a class="boton-cerrar-thu rounded-circle text-decoration-none" href="">x</a>
   </div>
@@ -169,7 +167,3 @@
   </button>
 </ng-template>
 <!-- MENU -->
-
-<!-- <ng-template #contentModalModelos let-modal>
-  <app-modelsmodal></app-modelsmodal>
-</ng-template> -->

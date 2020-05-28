@@ -20,22 +20,18 @@ export class DataService {
    */
 
   getData(endpoint: string): Observable<any> {
-    console.log(this.apiUrl);
     return this.httpClient.get(this.apiUrl + endpoint);
   }
 
   postData(endpoint: string, datos: any): Observable<any> {
-    console.log(this.apiUrl);
     return this.httpClient.post(this.apiUrl + endpoint, datos);
   }
 
   putData(endpoint: string, datos: any): Observable<any> {
-    console.log(this.apiUrl);
     return this.httpClient.put(this.apiUrl + endpoint, datos);
   }
 
   deleteData(endpoint: string): Observable<any> {
-    console.log(this.apiUrl);
     return this.httpClient.delete(this.apiUrl + endpoint);
   }
 

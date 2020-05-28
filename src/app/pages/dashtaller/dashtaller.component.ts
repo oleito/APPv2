@@ -48,9 +48,9 @@ export class DashtallerComponent implements OnInit {
       );
     }
 
-    console.log(event.item.element.nativeElement.id);
-    console.log(event.previousContainer.element.nativeElement.id);
-    console.log(event.container.element.nativeElement.id);
+    // console.log(event.item.element.nativeElement.id);
+    // console.log(event.previousContainer.element.nativeElement.id);
+    // console.log(event.container.element.nativeElement.id);
   }
 
   obtenerVehiculos() {

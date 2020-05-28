@@ -72,11 +72,18 @@ export class MenuComponent implements OnInit {
     this.obtenerMarcas();
     this.obtenerCarrocerias();
   }
+
   model: NgbDateStruct;
-  date: { year: number, month: number };
+  // let myDate = new Date(ngbDate.year, ngbDate.month-1, ngbDate.day);
+  date;
+  // date: { year: number, month: number };
 
   fechaElejida() {
-    console.log("fecha elejida: ")
+    console.log("fecha elejida: ", this.model);
+  }
+
+  onDateChange() {
+    console.log(this.model);
   }
 
   openModal() {
@@ -96,8 +103,6 @@ export class MenuComponent implements OnInit {
         color: this.vehiculoForm.controls.color.value,
       }
     }
-    console.log(this.idvehiculo);
-    console.log(res);
     this.menuService.putVehiculo(this.idvehiculo, res).subscribe(res => {
       this.dashtallerService.updateDatosVehiculo('idvehiculo', this.idvehiculo);
       this.dashtallerService.updateDatosVehiculo('patente', res.data.patente);

@@ -30,7 +30,6 @@ export class MainmodalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('main Modal Init ref', this.referencia);
     this.dashTallerService.obtenerDatosVehiculo(Number(this.referencia));
   }
   openModal(content) {
