@@ -7,45 +7,52 @@
         <th>Pieza</th>
         <th>Accion</th>
         <th>Pedido</th>
-        <th>Cod/Prov</th>
+        <th>Codigo</th>
+        <th>Proveedor</th>
         <th>Estado</th>
       </thead>
       <tbody>
-        <!-- <tr>
-          <td>Paragolpes delantero</td>
-          <td>Pintar</td>
-          <td></td>
-          <td>Los Primos</td>
-          <td><span class="badge badge-success">En Camino</span></td>
-        </tr> -->
+         <tr *ngFor="let p of piezasPorCargar">
+          <td> {{ p.pieza }} </td>
+          <td> {{ p.accion }} </td>
+          <td> {{ p.modo }} </td>
+          <td> {{ p.proveedor }} </td>
+          <td> {{ p.codigo }} </td>
+          <td><span class="badge badge-info">Sin cargar</span></td>
+        </tr>
       </tbody>
     </table>
-    <!--  -->
-    <div class="input-group">
-      <input type="text" class="form-control form-control-sm" placeholder="Pieza" [disabled]="!isInited" />
-      <div class="input-group-append">
-        <div class="input-group">
-          <select class="form-control form-control-sm" [disabled]="!isInited">
-            <option selected>Pintar</option>
-            <option>Reparar</option>
-            <option>Cambiar</option>
-          </select>
+    <form [formGroup]="cargarPiezasForm" (ngSubmit)="onSubmitCargarPieza()">
+      <div class="input-group">
+        <input type="text" formControlName="pieza" class="form-control form-control-sm" placeholder="Pieza" />
+        <div class="input-group-append">
+          <div class="input-group">
+            <select formControlName="accion" (change)="onAccionChange()" class="form-control form-control-sm">
+              <option selected value="1">Pintar</option>
+              <option value="2">Reparar</option>
+              <option value="3">Cambiar</option>
+            </select>
+          </div>
         </div>
-      </div>
-      <div class="input-group-append">
-        <div class="input-group">
-          <select class="form-control form-control-sm" [disabled]="!isInited">
-            <option selected></option>
-            <option>Int</option>
-            <option>Ext</option>
-          </select>
+        <div class="input-group-append">
+          <div class="input-group">
+            <select formControlName="modo" (change)="onModopedidoChange()" class="form-control form-control-sm">
+              <option selected></option>
+              <option value="1">Int</option>
+              <option value="2">Ext</option>
+            </select>
+          </div>
         </div>
+        <input type="text" class="form-control form-control-sm" *ngIf="!modoIsDefined" disabled>
+        <input formControlName="proveedor" type="text" class="form-control form-control-sm" placeholder="Proveedor"
+          *ngIf="!pedidoInterno && modoIsDefined">
+        <input formControlName="codigo" type="text" class="form-control form-control-sm" placeholder="Codigo"
+          *ngIf="pedidoInterno  && modoIsDefined">
       </div>
-      <input type="text" class="form-control form-control-sm" placeholder="Proveedor" *ngIf="false" [disabled]="!isInited">
-      <input type="text" class="form-control form-control-sm" placeholder="Codigo" *ngIf="true" [disabled]="!isInited">
-    </div>
-    <button class="float-right btn btn-sm btn-success mt-1" [disabled]="!isInited">
-      Agregar
-    </button>
+      <button class="float-right btn btn-sm btn-success mt-1" [disabled]="!referencia || !puedeCargar">
+        Agregar
+      </button>
+    </form>
+
   </div>
 </div>

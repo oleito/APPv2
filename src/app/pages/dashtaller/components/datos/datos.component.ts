@@ -20,7 +20,7 @@ export class DatosComponent implements OnInit {
     vin: null;
     color: null;
     seguro: null;
-
+    fecha_entrega: null;
   };
 
   observacionesForm = new FormGroup({

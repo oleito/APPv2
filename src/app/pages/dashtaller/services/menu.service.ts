@@ -33,5 +33,14 @@ export class MenuService {
     return this.dataService.putData('ordenes/' + ref, data);
   }
 
+  putFechaVehiculo(ref, fecha) {
+    let res = {
+      data: {
+        fecha_entrega: fecha
+      }
+    }
+    return this.dataService.putData('ordenes/' + ref, res);
+  }
+
 
 }

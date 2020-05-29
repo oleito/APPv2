@@ -107,16 +107,16 @@
   <div class="mt-2 px-2">
     <div class="form-group">
       <div class="input-group">
-        <input class="form-control form-control-sm" placeholder="yyyy-mm-dd"/>
-        <input type="time" class="form-control form-control-sm" />
+        <input [(ngModel)]="selectedDate" class="form-control form-control-sm" placeholder="yyyy-mm-dd" />
+        <!-- <input [(ngModel)]="selectedTime" type="time" min="09:00:00" max="18:00:00" step="30:00" class="form-control form-control-sm" /> -->
       </div>
     </div>
   </div>
   <div class="d-flex justify-content-center">
-    <ngb-datepicker #d1 [(ngModel)]="date" #c1="ngModel"></ngb-datepicker>
+    <ngb-datepicker #d1 [(ngModel)]="date" #c1="ngModel" (select)="onDateSelect()"></ngb-datepicker>
   </div>
-  <pre>Model: {{ date | json }}</pre>
-  <button class="btn btn-sm btn-block btn-success ">Aceptar</button>
+  <!-- <pre>Model: {{ date | json }}</pre> -->
+  <button class="btn btn-sm btn-block btn-success" (click)="onDateConfirm()">Confirmar</button>
 </ng-template>
 
 <!-- MENU SEGURO -->

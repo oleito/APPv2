@@ -39,7 +39,6 @@ export class MenuComponent implements OnInit {
   idvehiculo;
 
   error = false;
-
   subscription: Subscription;
 
   constructor(
@@ -73,22 +72,30 @@ export class MenuComponent implements OnInit {
     this.obtenerCarrocerias();
   }
 
+
+  selectedDate;
+  selectedTime;
   model: NgbDateStruct;
   // let myDate = new Date(ngbDate.year, ngbDate.month-1, ngbDate.day);
   date;
   // date: { year: number, month: number };
 
-  fechaElejida() {
-    console.log("fecha elejida: ", this.model);
+  onDateSelect() {
+    let selectDate = new Date(this.date.year, this.date.month - 1, this.date.day);
+    this.selectedDate = selectDate.toLocaleDateString('es-AR');
+  }
+  onDateConfirm() {
+    console.log(this.selectedDate);
+    this.menuService.putFechaVehiculo(this.referencia, this.selectedDate).subscribe(res => {
+      console.log(res);
+    }, err => {
+      console.log('putFechaVehiculo', err);
+    }
+    )
   }
 
-  onDateChange() {
-    console.log(this.model);
-  }
 
-  openModal() {
-    this.modal.open(ModelsmodalComponent, { size: 'lg' });
-  }
+
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
@@ -228,4 +235,9 @@ export class MenuComponent implements OnInit {
       console.log('putVehiculo', err);
     });
   }
+
+  openModal() {
+    this.modal.open(ModelsmodalComponent, { size: 'lg' });
+  }
+
 }

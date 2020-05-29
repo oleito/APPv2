@@ -28,7 +28,7 @@
 <!-- Fecha entrega -->
 <div class="row mt-2">
   <div class="col">
-    <p class="mb-0"><b>Fecha Entrega: </b>12/03/20</p>
+    <p class="mb-0"><b>Fecha Entrega: </b><span *ngIf="datosVehiculo.fecha_entrega"> {{ datosVehiculo.fecha_entrega }} </span></p>
   </div>
 </div>
 <!-- Observaciones -->
