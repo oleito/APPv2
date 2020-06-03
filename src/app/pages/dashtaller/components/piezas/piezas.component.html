@@ -11,20 +11,37 @@
         <th>Proveedor</th>
         <th>Estado</th>
       </thead>
-      <tbody>
-         <tr *ngFor="let p of piezasPorCargar">
+
+      <tbody class="">
+        <tr *ngFor="let p of piezasCargadas, index as i">
           <td> {{ p.pieza }} </td>
           <td> {{ p.accion }} </td>
           <td> {{ p.modo }} </td>
-          <td> {{ p.proveedor }} </td>
           <td> {{ p.codigo }} </td>
-          <td><span class="badge badge-info">Sin cargar</span></td>
+          <td> {{ p.proveedor }} </td>
+          <td><span class="badge badge-info">{{ p.estado }}</span></td>
         </tr>
       </tbody>
     </table>
+
+    <table class="table table-hover table-sm">
+      <tr *ngFor="let p of piezasPorCargar, index as i">
+        <td> {{ p.pieza }} </td>
+        <td> {{ p.accion }} </td>
+        <td> {{ p.modo }} </td>
+        <td> {{ p.codigo }} </td>
+        <td> {{ p.proveedor }} </td>
+        <td>
+          <span class="badge badge-info">Sin cargar</span>
+          <span class="badge badge-danger" (click)="eliminarPiezaPorPedir(i)">X</span>
+        </td>
+      </tr>
+    </table>
+
     <form [formGroup]="cargarPiezasForm" (ngSubmit)="onSubmitCargarPieza()">
       <div class="input-group">
-        <input type="text" formControlName="pieza" class="form-control form-control-sm" placeholder="Pieza" />
+        <input #inputPieza type="text" formControlName="pieza" class="form-control form-control-sm"
+          placeholder="Pieza" />
         <div class="input-group-append">
           <div class="input-group">
             <select formControlName="accion" (change)="onAccionChange()" class="form-control form-control-sm">
@@ -49,10 +66,17 @@
         <input formControlName="codigo" type="text" class="form-control form-control-sm" placeholder="Codigo"
           *ngIf="pedidoInterno  && modoIsDefined">
       </div>
-      <button class="float-right btn btn-sm btn-success mt-1" [disabled]="!referencia || !puedeCargar">
-        Agregar
-      </button>
+      <div class="btn-group float-right">
+        <button class="btn btn-sm btn-success mt-1" [disabled]="!referencia || !puedeCargar">
+          Agregar
+        </button>
+        <button type="button" (click)="subirPiezasPorCargar()" class="btn btn-sm btn-secondary btn-outline mt-1"
+          [disabled]="this.piezasPorCargar.length === 0">
+          <span class="material-icons">
+            cloud_upload
+          </span>
+        </button>
+      </div>
     </form>
-
   </div>
 </div>

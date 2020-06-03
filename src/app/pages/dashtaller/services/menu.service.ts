@@ -42,5 +42,8 @@ export class MenuService {
     return this.dataService.putData('ordenes/' + ref, res);
   }
 
+  getImg(Url) {
+    return this.dataService.getResource(Url)
+  }
 
 }

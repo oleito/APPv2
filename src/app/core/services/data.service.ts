@@ -35,4 +35,13 @@ export class DataService {
     return this.httpClient.delete(this.apiUrl + endpoint);
   }
 
+  getResource(fullPath: string): Observable<any> {
+    return this.httpClient.get(fullPath, { responseType: 'blob' })
+    // .subscribe(res => {
+    //   console.log(res)
+    // }, err => {
+    //   console.log(err)
+    // });
+  }
+
 }

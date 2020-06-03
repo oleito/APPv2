@@ -2,3 +2,7 @@
   width: 250px;
   height: 157px;
 }
+.material-icons {
+  position: relative;
+  font-size: 1.3em;
+}

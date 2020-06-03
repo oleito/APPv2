@@ -18,6 +18,8 @@ export class MenuComponent implements OnInit {
   marcas;
   modelos;
   carrocerias;
+  carroceriasImg = [];
+  imageToShow;
   currentMarca = null;
   currentModelo = null;
   loadingMarcas = true;
@@ -172,10 +174,32 @@ export class MenuComponent implements OnInit {
   obtenerCarrocerias() {
     this.modelsmodalService.getCarrocerias().subscribe(res => {
       this.carrocerias = res.data;
+      this.carrocerias.map(carr => {
+        this.menuService.getImg(carr.Img).subscribe(res => {
+          this.createImageFromBlob(res, carr.Id);
+        }, err => {
+          console.log('getImg: ', err)
+        });
+      });
+      console.log(this.carroceriasImg);
+
     }, err => {
       console.log('getCarrocerias: ', err);
     })
   }
+
+  createImageFromBlob(image: Blob, ID) {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => {
+      // this.imageToShow = ;
+      this.carroceriasImg.push({ image: reader.result, id: ID });
+      console.log(this.carroceriasImg);
+    }, false);
+    if (image) {
+      reader.readAsDataURL(image);
+    }
+  }
+
   obtenerModelos(marca) {
     this.loadingModelos = true;
     this.modelsmodalService.getModelos(marca).subscribe(res => {
@@ -205,10 +229,12 @@ export class MenuComponent implements OnInit {
     this.canUpdate = true;
   }
   updateImg(idCarroceria) {
-    const carroceria = this.carrocerias.find(carroceria => {
-      return carroceria.Id === idCarroceria;
+    console.log(idCarroceria);
+    console.log(this.carroceriasImg);
+    const carroceria = this.carroceriasImg.find(img => {
+      return img.id === idCarroceria;
     });
-    this.currentCarroceriaImg = idCarroceria == null ? this.defImg : carroceria.Img;
+    this.imageToShow = idCarroceria == null ? this.defImg : carroceria.image;
   }
 
   updateModelo() {

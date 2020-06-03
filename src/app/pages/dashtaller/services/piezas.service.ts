@@ -6,5 +6,13 @@ import { DataService } from 'src/app/core/services/data.service';
 })
 export class PiezasService {
 
-  constructor(private dataService:DataService) { }
+  constructor(private dataService: DataService) { }
+
+  getPiezas(idReferencia) {
+    return this.dataService.getData('ordenes/' + idReferencia + '/piezas');
+  }
+
+  postPiezas(idReferencia, data) {
+    return this.dataService.postData('ordenes/' + idReferencia + '/piezas', data);
+  }
 }
