@@ -181,8 +181,7 @@ export class MenuComponent implements OnInit {
           console.log('getImg: ', err)
         });
       });
-      console.log(this.carroceriasImg);
-
+      // console.log(this.carroceriasImg);
     }, err => {
       console.log('getCarrocerias: ', err);
     })
@@ -193,7 +192,7 @@ export class MenuComponent implements OnInit {
     reader.addEventListener("load", () => {
       // this.imageToShow = ;
       this.carroceriasImg.push({ image: reader.result, id: ID });
-      console.log(this.carroceriasImg);
+      // console.log(this.carroceriasImg);
     }, false);
     if (image) {
       reader.readAsDataURL(image);
@@ -266,4 +265,70 @@ export class MenuComponent implements OnInit {
     this.modal.open(ModelsmodalComponent, { size: 'lg' });
   }
 
+  /**fotos */
+
+  imageError: string;
+  isImageSaved: boolean;
+  cardImageBase64;
+  cardImagesBase64 = [];
+  fileChangeEvent(fileInput: any) {
+    this.imageError = null;
+    if (fileInput.target.files && fileInput.target.files[0]) {
+      let qt = fileInput.target.files.length;
+      console.log(qt);
+      // Size Filter Bytes
+      const max_size = 20971520;
+      const allowed_types = ['image/png', 'image/jpeg'];
+      const max_height = 15200;
+      const max_width = 25600;
+
+      if (fileInput.target.files[0].size > max_size) {
+        this.imageError =
+          'Maximum size allowed is ' + max_size / 1000 + 'Mb';
+        return false;
+      }
+
+      for (let i = 0; i < qt; i++) {
+
+        const reader = new FileReader();
+
+        // const element = array[index];
+        reader.onload = (e: any) => {
+          const image = new Image();
+          image.src = e.target.result;
+          image.onload = rs => {
+            const img_height = rs.currentTarget['height'];
+            const img_width = rs.currentTarget['width'];
+
+            console.log(img_height, img_width);
+
+            let ratio = img_width / 40;
+
+            if (img_height > max_height && img_width > max_width) {
+              this.imageError =
+                'Maximum dimentions allowed ' +
+                max_height +
+                '*' +
+                max_width +
+                'px';
+              return false;
+            } else {
+              const imgBase64Path = e.target.result;
+              this.cardImagesBase64.push(imgBase64Path);
+              this.isImageSaved = true;
+            }
+          };
+        };
+        let file = fileInput.target.files[i];
+        reader.readAsDataURL(file);
+      }
+    }
+    console.log(this.cardImagesBase64);
+  }
+
+  subirFotos() {
+    this.menuService.postFotos(this.referencia, this.cardImagesBase64).subscribe(res => {
+      console.log(res.data);
+    })
+  }
 }

@@ -46,4 +46,12 @@ export class MenuService {
     return this.dataService.getResource(Url)
   }
 
+  postFotos(idReferencia, data) {
+    let res = {
+      data: data
+    };
+    console.log(res);
+    return this.dataService.postData('ordenes/' + idReferencia + '/fotos', res);
+  }
+
 }

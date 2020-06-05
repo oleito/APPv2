@@ -167,17 +167,24 @@
 <ng-template #popContentFotos>
   <div class="form-group">
     <label for="exampleFormControlSelect1">Seleccione</label>
-    <input type="file" class="form-control-file" multiple>
   </div>
   <hr />
   <div>
-    <img src="https://via.placeholder.com/40" alt="img img-thumbnail">
+    <!-- <img src="https://via.placeholder.com/40" alt="img img-thumbnail"> -->
+    <!-- <img [src]="fileToUpload" alt="img img-thumbnail"> -->
+    <img [src]="" alt="">
     <a class="boton-cerrar-thu rounded-circle text-decoration-none" href="">x</a>
   </div>
   <p>
     Si el seguro que buscas no se encuentra, puedes agregar uno nuevo.
   </p>
-  <button class="btn btn-sm btn-block btn-success">Agregar</button>
+  <button (click)="subirFotos()" class="btn btn-sm btn-block btn-success">Agregar</button>
+
+
+  <input type="file" (change)="fileChangeEvent($event)" class="fileInputProfile" multiple>
+
+  <img *ngFor="let image of cardImagesBase64" [src]="image" class="img img-fluidimg-thumbnail img-preview" />
+
 </ng-template>
 
 <!-- MENU PIEZAS -->
