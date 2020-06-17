@@ -12,29 +12,44 @@ export class FotosComponent implements OnInit {
   subscription;
   referencia;
   idvehiculo;
-  fotos = []
+  defFotos = [
+    {
+      foto_thumb: "https://via.placeholder.com/160x90",
+      foto_url: "https://via.placeholder.com/800x600"
+    },
+    {
+      foto_thumb: "https://via.placeholder.com/160x90",
+      foto_url: "https://via.placeholder.com/800x600"
+    },
+    {
+      foto_thumb: "https://via.placeholder.com/160x90",
+      foto_url: "https://via.placeholder.com/800x600"
+    }
+  ]
+  fotos;
 
   constructor(
     private dashtallerService: DashtallerService,
     private fotosService: FotosService
-
   ) {
     this.subscription = this.dashtallerService.$currentVehicle.subscribe(data => {
       this.referencia = data.referencia ? data.referencia : false;
       this.idvehiculo = data.idvehiculo ? data.idvehiculo : false;
+      this.fotos = data.fotos ? data.fotos : this.defFotos;
     }, err => {
       console.log(err);
     })
   }
 
   ngOnInit(): void {
-    this.obtenerFotos();
+    setTimeout(() => {
+      this.obtenerFotos();
+    }, 1500)
   }
   obtenerFotos() {
-    console.log('obtenerFotos')
     this.fotosService.getFotos(this.referencia).subscribe(res => {
-      console.log(res);
-      this.fotos = res.data;
+      // this.fotos = res.data > 0 ? res.data : this.defFotos;
+      this.dashtallerService.updateDatosVehiculo('fotos', res.data);
     }, err => {
       console.log('getFotos: ', err)
     })

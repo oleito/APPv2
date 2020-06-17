@@ -19,7 +19,7 @@
           <span *ngIf="datosVehiculo.color"> {{ datosVehiculo.color }} </span>
         </p>
         <p class="mb-0"><b>Seguro: </b>
-          <span *ngIf="datosVehiculo.seguro"> {{ datosVehiculo.seguro }} </span>
+          <span *ngIf="datosVehiculo.seguro != null"> {{ datosVehiculo.seguro }} </span>
         </p>
       </div>
     </div>
@@ -28,7 +28,8 @@
 <!-- Fecha entrega -->
 <div class="row mt-2">
   <div class="col">
-    <p class="mb-0"><b>Fecha Entrega: </b><span *ngIf="datosVehiculo.fecha_entrega"> {{ datosVehiculo.fecha_entrega }} </span></p>
+    <p class="mb-0"><b>Fecha Entrega: </b><span *ngIf="datosVehiculo.fecha_entrega != null">
+        {{ datosVehiculo.fecha_entrega }} </span></p>
   </div>
 </div>
 <!-- Observaciones -->
@@ -44,10 +45,11 @@
     <form [hidden]="datosVehiculo.observaciones != null" [formGroup]="observacionesForm"
       (ngSubmit)="onSubmitObservacionesForm()">
       <div class=" form-group">
-        <textarea formControlName="observaciones" class="form-control" rows="2" maxlength="200">
+        <textarea formControlName="observaciones" class="form-control" rows="2"
+          maxlength="200">
         </textarea>
       </div>
-      <button class="float-right btn btn-sm btn-success mt-1" [disabled]="!observacionesForm.valid">
+      <button class="float-right btn btn-sm btn-success mt-1" [disabled]="!observacionesForm.valid || !referencia">
         Agregar
       </button>
     </form>

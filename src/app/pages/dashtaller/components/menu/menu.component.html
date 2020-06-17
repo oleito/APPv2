@@ -8,44 +8,36 @@
     Orden
   </button>
   <button class="btn btn-sm btn-block text-left btn-secondary" placement="bottom" [ngbPopover]="popContentVehiculo"
-    [autoClose]="'outside'" container="body" [disabled]="!referencia">
+    #popOverContentVehiculo="ngbPopover" [autoClose]="'outside'" container="body" [disabled]="!referencia">
     <!-- <span class="material-icons m-0 p-0">
       directions_car
     </span> -->
     Vehiculo
   </button>
   <button class="btn btn-sm btn-block text-left btn-secondary" placement="bottom" [ngbPopover]="popContentModelo"
-    [autoClose]="'outside'" container="body" [disabled]="!referencia">
+    #popOverContentModelo="ngbPopover" [autoClose]="'outside'" container="body" [disabled]="!referencia">
     <!-- <span class="material-icons">
       description
     </span> -->
     Modelo
   </button>
   <button class="btn btn-sm btn-block text-left btn-secondary" placement="bottom" [ngbPopover]="popContentEntrega"
-    [autoClose]="'outside'" container="body" [disabled]="!referencia">
+    #popOverContentEntrega="ngbPopover" [autoClose]="'outside'" container="body" [disabled]="!referencia">
     <!-- <span class="material-icons">
       date_range
     </span> -->
     Fecha entrega
   </button>
   <button class="btn btn-sm btn-block text-left btn-secondary" placement="bottom" [ngbPopover]="popContentSeguro"
-    [autoClose]="'outside'" container="body" [disabled]="!referencia">
+    #popOverContentSeguro="ngbPopover" [autoClose]="'outside'" container="body" [disabled]="!referencia">
     <!-- <span class="material-icons">
       folder_shared
     </span> -->
     Seguro
   </button>
   <hr class="hr" />
-  <button class="btn btn-sm btn-block text-left btn-secondary" placement="bottom" [ngbPopover]="popContentPedido"
-    [autoClose]="'outside'" container="body" [disabled]="!referencia">
-    <!-- <span class="material-icons">
-      local_shipping
-    </span> -->
-    Pedido
-  </button>
-  <hr class="hr" />
   <button class="btn btn-sm btn-block text-left btn-secondary" placement="bottom" [ngbPopover]="popContentFotos"
-    [autoClose]="'outside'" container="body" [disabled]="!referencia">
+    #popOverContentFotos="ngbPopover" [autoClose]="'outside'" container="body" [disabled]="!referencia">
     <!-- <span class="material-icons">
       photo
     </span> -->
@@ -119,8 +111,10 @@
     <div class="col-6">
       <button (click)="updateModelo()" class="btn btn-sm btn-block btn-success" [disabled]="!canUpdate">Aceptar</button>
     </div>
+    <div class="col-6">
+      <button (click)="openModal()" class="btn btn-sm btn-block btn-primary">Agregar</button>
+    </div>
   </div>
-  <a (click)="openModal()">Admin. avanzada</a>
 </ng-template>
 
 <!-- MENU FECHA ENTREGA -->
@@ -168,22 +162,18 @@
   <div class="form-group">
     <label for="exampleFormControlSelect1">Seleccione</label>
   </div>
-  <hr />
   <div>
-    <!-- <img src="https://via.placeholder.com/40" alt="img img-thumbnail"> -->
-    <!-- <img [src]="fileToUpload" alt="img img-thumbnail"> -->
-    <img [src]="" alt="">
-    <a class="boton-cerrar-thu rounded-circle text-decoration-none" href="">x</a>
+    <input accept="image/jpeg" type="file" (change)="fileChangeEvent($event)" class="fileInputProfile" multiple>
+    <hr />
+    <img *ngFor="let image of cardImagesBase64" [src]="image" class="img img-fluidimg-thumbnail img-preview" />
   </div>
   <p>
-    Si el seguro que buscas no se encuentra, puedes agregar uno nuevo.
+    Solo son admitidas imagenes JPEG
   </p>
   <button (click)="subirFotos()" class="btn btn-sm btn-block btn-success">Agregar</button>
 
 
-  <input type="file" (change)="fileChangeEvent($event)" class="fileInputProfile" multiple>
 
-  <img *ngFor="let image of cardImagesBase64" [src]="image" class="img img-fluidimg-thumbnail img-preview" />
 
 </ng-template>
 

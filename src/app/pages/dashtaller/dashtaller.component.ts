@@ -18,12 +18,14 @@ export class DashtallerComponent implements OnInit {
   vhBySector = [
     {
       sector: 'Espera Repuestos',
+      idSector: '1',
       vehiculos: [
 
       ]
     },
     {
       sector: 'Espera turno',
+      idSector: '2',
       vehiculos: [
 
       ]
@@ -36,7 +38,7 @@ export class DashtallerComponent implements OnInit {
   }
 
   onDrop(event: CdkDragDrop<any[]>) {
-    console.log(event);
+    //console.log(event);
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -48,9 +50,11 @@ export class DashtallerComponent implements OnInit {
       );
     }
 
-    // console.log(event.item.element.nativeElement.id);
-    // console.log(event.previousContainer.element.nativeElement.id);
-    // console.log(event.container.element.nativeElement.id);
+    console.log(event.item.element.nativeElement.id);
+    console.log(event.previousContainer.element.nativeElement.id);
+    console.log(event.container.element.nativeElement.id);
+    this.moverVerhiculo(event.item.element.nativeElement.id, event.container.element.nativeElement.id);
+
   }
 
   obtenerVehiculos() {
@@ -75,5 +79,16 @@ export class DashtallerComponent implements OnInit {
   }
   openModalNuevo() {
     this.modal.open(NewmodalComponent);
+  }
+  moverVerhiculo(idReferencia, nuevoSector) {
+    let data = {
+      idReferencia: idReferencia,
+      nuevoSector: nuevoSector
+    }
+    this.dashTallerService.updateVehiculoEnSector(data).subscribe(res => {
+      this.vhBySector = res.data;
+    }, err => {
+      console.log('updateVehiculoEnSector', err)
+    })
   }
 }

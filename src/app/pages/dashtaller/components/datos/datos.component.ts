@@ -42,6 +42,7 @@ export class DatosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.datosVehiculo.observaciones = null;
   }
 
   ngOnDestroy(): void {

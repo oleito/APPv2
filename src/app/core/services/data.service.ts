@@ -26,6 +26,11 @@ export class DataService {
   postData(endpoint: string, datos: any): Observable<any> {
     return this.httpClient.post(this.apiUrl + endpoint, datos);
   }
+  postDataWithProgress(endpoint: string, datos: any): Observable<any> {
+    return this.httpClient.post(this.apiUrl + endpoint, datos, {
+      reportProgress: true
+    });
+  }
 
   putData(endpoint: string, datos: any): Observable<any> {
     return this.httpClient.put(this.apiUrl + endpoint, datos);

@@ -36,5 +36,6 @@ export class MainmodalComponent implements OnInit {
     this.modal.open(content, { size: 'lg', scrollable: true });
   }
   ngOnDestroy(): void {
+    this.dashTallerService.end();
   }
 }

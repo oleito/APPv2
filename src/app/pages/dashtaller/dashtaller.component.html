@@ -5,11 +5,11 @@
         <h2 class="rounded-sm mb-0">{{ sector.sector }}</h2>
       </div>
       <div cdkDropList #moviesList="cdkDropList" [cdkDropListData]="sector.vehiculos" class="movie-list pb-3"
-        (cdkDropListDropped)="onDrop($event)" [id]="sector.sector">
-        <div class="list-group-item" *ngFor="let vh of sector.vehiculos" (click)="openMainModalCurrent(vh.referencia)"
+        (cdkDropListDropped)="onDrop($event)" [id]="sector.idSector">
+        <div class="list-group-item p-2" *ngFor="let vh of sector.vehiculos" (click)="openMainModalCurrent(vh.referencia)"
           [id]="vh.referencia" cdkDrag>
-          <h3 class="m-0 p-0"> {{ vh.referencia }} - OWY 301 </h3>
-          <h4 class="m-0 p-0">Nombre del cliente</h4>
+          <h3 class="m-0 p-0"> {{ vh.marca }} - {{ vh.modelo }} </h3>
+          <h4 class="m-0 p-0"> {{ vh.color }} - {{ vh.patente }} </h4>
         </div>
       </div>
       <div class="card-footer">

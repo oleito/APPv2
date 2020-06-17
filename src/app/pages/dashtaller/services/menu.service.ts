@@ -51,7 +51,7 @@ export class MenuService {
       data: data
     };
     console.log(res);
-    return this.dataService.postData('ordenes/' + idReferencia + '/fotos', res);
+    return this.dataService.postDataWithProgress('ordenes/' + idReferencia + '/fotos', res);
   }
 
 }

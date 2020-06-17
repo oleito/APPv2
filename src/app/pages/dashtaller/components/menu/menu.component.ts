@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NgbModal, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { NgbModal, NgbDateStruct, NgbPopover } from '@ng-bootstrap/ng-bootstrap';
 import { ModelsmodalComponent } from "./../modelsmodal/modelsmodal.component";
 import { DashtallerService } from '../../services/dashtaller.service';
 import { isNumber } from 'util';
@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { MenuService } from '../../services/menu.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ModelsmodalService } from '../../services/modelsmodal.service';
+import { promise } from 'protractor';
 
 @Component({
   selector: 'app-menu',
@@ -74,6 +75,13 @@ export class MenuComponent implements OnInit {
     this.obtenerCarrocerias();
   }
 
+  /**popOVER */
+  @ViewChild('popOverContentEntrega') public popOverContentEntrega: NgbPopover;
+  @ViewChild('popOverContentModelo') public popOverContentModelo: NgbPopover;
+  @ViewChild('popOverContentSeguro') public popOverContentSeguro: NgbPopover;
+  @ViewChild('popOverContentVehiculo') public popOverContentVehiculo: NgbPopover;
+  @ViewChild('popOverContentFotos') public popOverContentFotos: NgbPopover;
+
 
   selectedDate;
   selectedTime;
@@ -89,7 +97,10 @@ export class MenuComponent implements OnInit {
   onDateConfirm() {
     console.log(this.selectedDate);
     this.menuService.putFechaVehiculo(this.referencia, this.selectedDate).subscribe(res => {
-      console.log(res);
+      this.dashtallerService.updateDatosVehiculo('fecha_entrega', res.data['fecha_entrega']);
+
+      this.popOverContentEntrega.isOpen() ? this.popOverContentEntrega.close() : null;
+      // this.popContentEntrega.close();
     }, err => {
       console.log('putFechaVehiculo', err);
     }
@@ -117,6 +128,7 @@ export class MenuComponent implements OnInit {
       this.dashtallerService.updateDatosVehiculo('patente', res.data.patente);
       this.dashtallerService.updateDatosVehiculo('vin', res.data.vin);
       this.dashtallerService.updateDatosVehiculo('color', res.data.color);
+      this.popOverContentVehiculo.isOpen() ? this.popOverContentVehiculo.close() : null;
     }, err => {
       console.log('putvehiculo ', err);
     })
@@ -137,6 +149,7 @@ export class MenuComponent implements OnInit {
         return seguro.Id === this.seguroSelected;
       })
       this.dashtallerService.updateDatosVehiculo('seguro', seguroFila.Seguro);
+      this.popOverContentSeguro.isOpen() ? this.popOverContentSeguro.close() : null;
       this.loadingSeguro = false;
     }, err => {
       console.log('actualizarSeguro() ', err);
@@ -166,9 +179,11 @@ export class MenuComponent implements OnInit {
     this.modelsmodalService.getMarcas().subscribe(res => {
       this.marcas = res.data;
       this.loadingMarcas = false;
+      return true
     }, err => {
       console.log('Get marcas ', err)
       this.loadingMarcas = false;
+      return false
     })
   }
   obtenerCarrocerias() {
@@ -254,6 +269,7 @@ export class MenuComponent implements OnInit {
       })
       this.dashtallerService.updateDatosVehiculo('modelo', modelo.Modelo);
       this.dashtallerService.updateDatosVehiculo('marca', marca.Marca);
+      this.popOverContentModelo.isOpen() ? this.popOverContentModelo.close() : null;
       this.loadingMarcas = false;
       this.loadingModelos = false;
     }, err => {
@@ -262,7 +278,7 @@ export class MenuComponent implements OnInit {
   }
 
   openModal() {
-    this.modal.open(ModelsmodalComponent, { size: 'lg' });
+    this.modal.open(ModelsmodalComponent, { size: 'lg', beforeDismiss: () => { this.obtenerMarcas(); return false } });
   }
 
   /**fotos */
@@ -326,9 +342,22 @@ export class MenuComponent implements OnInit {
     console.log(this.cardImagesBase64);
   }
 
+  fotos
   subirFotos() {
     this.menuService.postFotos(this.referencia, this.cardImagesBase64).subscribe(res => {
-      console.log(res.data);
+      console.log(res);
+      this.cardImagesBase64 = [];
+      this.fotos = res.data.length > 0 ? res.data : false;
+      this.dashtallerService.updateDatosVehiculo('fotos', this.fotos);
+      this.popOverContentFotos.close();
+    }, err => {
+      console.log('postFotos: ', err);
     })
+
+    // crear subjet fotos en el componente, y cambiarlo aca
+    // subcribirse en el componente fotos
+
+    /** objeto curren vehicle en dashtallerservice */
+
   }
 }

@@ -48,7 +48,9 @@ export class DashtallerService {
   getDetalleOrden(referencia) {
     return this.dataService.getData('ordenes/' + referencia);
   }
-
+  updateVehiculoEnSector(data){
+    return this.dataService.putData('sectores/vehiculos', data);
+  }
 
   getVhBySector() {
     return this.dataService.getData('sectores/vehiculos');

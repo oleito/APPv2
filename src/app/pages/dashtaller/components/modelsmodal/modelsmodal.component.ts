@@ -33,13 +33,15 @@ export class ModelsmodalComponent implements OnInit {
   marcaForm = new FormGroup({
     marca: new FormControl('', Validators.required),
   });
+
   modeloForm = new FormGroup({
     modelo: new FormControl('', Validators.required),
   });
 
   constructor(
     private activeModal: NgbActiveModal,
-    private modelsmodalService: ModelsmodalService) { }
+    private modelsmodalService: ModelsmodalService
+  ) { }
 
   ngOnInit(): void {
     this.obtenerMarcas();
@@ -50,6 +52,7 @@ export class ModelsmodalComponent implements OnInit {
   }
   closeModelsModal() {
     console.log('Cerrar');
+    this.activeModal.dismiss('Close click');
     this.activeModal.close('Close click');
   }
 

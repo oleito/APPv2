@@ -52,6 +52,13 @@
 }
 
 .sector-card {
-  max-width: 300px;
-  min-width: 280px;
+  max-width: 250px;
+  min-width: 230px;
+}
+.popover {
+  z-index: 1050 !important;
+}
+
+.bg-info {
+  background-size: cover !important;
 }

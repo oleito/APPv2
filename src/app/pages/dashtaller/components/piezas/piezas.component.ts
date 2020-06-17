@@ -71,13 +71,38 @@ export class PiezasComponent implements OnInit {
 
   /** Detectores de cambios */
   onAccionChange() {
-    this.cargarPiezasForm.controls.accion.value === '3' ? this.cargarPiezasForm.controls.modo.enable() : this.cargarPiezasForm.controls.modo.disable();
+    if (this.cargarPiezasForm.controls.accion.value === '3') {
+      this.cargarPiezasForm.controls.modo.enable()
+    } else {
+      this.cargarPiezasForm.controls.modo.disable();
+      this.cargarPiezasForm.controls.modo.reset();
+      this.cargarPiezasForm.controls.codigo.disable();
+      this.cargarPiezasForm.controls.codigo.reset();
+      this.tempProveedor = this.cargarPiezasForm.controls.proveedor.value;
+      this.cargarPiezasForm.controls.proveedor.disable();
+      this.cargarPiezasForm.controls.proveedor.reset();
+    }
   }
+  tempProveedor = '';
   onModopedidoChange() {
     this.pedidoInterno = this.cargarPiezasForm.controls.modo.value === '1' ? true : false;
-    this.cargarPiezasForm.controls.codigo.enable();
-    this.cargarPiezasForm.controls.proveedor.enable();
     this.modoIsDefined = true;
+    if (this.cargarPiezasForm.controls.modo.value === '1') {
+      this.cargarPiezasForm.controls.codigo.enable();
+      this.tempProveedor = this.cargarPiezasForm.controls.proveedor.value;
+      this.cargarPiezasForm.controls.proveedor.disable();
+      this.cargarPiezasForm.controls.proveedor.reset();
+    } else if (this.cargarPiezasForm.controls.modo.value === '2') {
+      this.cargarPiezasForm.controls.proveedor.setValue(this.tempProveedor);
+      this.cargarPiezasForm.controls.proveedor.enable();
+      this.cargarPiezasForm.controls.codigo.disable();
+    } else {
+      this.cargarPiezasForm.controls.proveedor.disable();
+      this.cargarPiezasForm.controls.codigo.disable();
+      this.cargarPiezasForm.controls.proveedor.reset();
+      this.cargarPiezasForm.controls.codigo.reset();
+      this.modoIsDefined = false;
+    }
   }
 
   /** Actuadores */

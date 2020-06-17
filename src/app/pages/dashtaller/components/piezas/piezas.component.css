@@ -12,6 +12,7 @@ tbody {
 }
 thead,
 tbody tr {
+  font-size: 0.9em;
   display: table;
   width: 100%;
   table-layout: fixed; /* even columns width , fix width of table too*/
@@ -23,4 +24,34 @@ thead {
 }
 table {
   width: 100% !important;
+}
+table td:last-child,
+table th:last-child {
+  width: 60px;
+}
+table td:last-child,
+table th:last-child {
+  width: 60px;
+}
+
+table td:nth-child(2),
+table th:nth-child(2) {
+  width: 65px;
+}
+
+table td:nth-child(3),
+table th:nth-child(3) {
+  width: 52px;
+}
+table td:nth-child(4),
+table th:nth-child(4) {
+  width: 80px;
+}
+table td:nth-child(4),
+table th:nth-child(4) {
+  width: 110px;
+}
+table td:nth-child(5),
+table th:nth-child(5) {
+  width: 120px;
 }
