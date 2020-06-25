@@ -6,9 +6,9 @@
       </div>
       <div cdkDropList #moviesList="cdkDropList" [cdkDropListData]="sector.vehiculos" class="movie-list pb-3"
         (cdkDropListDropped)="onDrop($event)" [id]="sector.idSector">
-        <div class="list-group-item p-2" *ngFor="let vh of sector.vehiculos" (click)="openMainModalCurrent(vh.referencia)"
-          [id]="vh.referencia" cdkDrag>
-          <h3 class="m-0 p-0"> {{ vh.marca }} - {{ vh.modelo }} </h3>
+        <div class="list-group-item p-2" *ngFor="let vh of sector.vehiculos"
+          (click)="openMainModalCurrent(vh.referencia)" [id]="vh.referencia" cdkDrag>
+          <h3 class="m-0 p-0"> {{ vh.marca }} - <b> {{ vh.modelo }} </b> </h3>
           <h4 class="m-0 p-0"> {{ vh.color }} - {{ vh.patente }} </h4>
         </div>
       </div>

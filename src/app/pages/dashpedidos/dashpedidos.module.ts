@@ -1,3 +1,4 @@
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -9,7 +10,8 @@ import { DashpedidosComponent } from './dashpedidos.component';
   declarations: [DashpedidosComponent],
   imports: [
     CommonModule,
-    DashpedidosRoutingModule
+    DashpedidosRoutingModule,
+    NgbModule
   ]
 })
 export class DashpedidosModule { }

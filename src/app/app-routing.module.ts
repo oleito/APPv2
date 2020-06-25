@@ -4,15 +4,15 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'taller',
     canActivate: [],
     loadChildren: './pages/dashtaller/dashtaller.module#DashtallerModule'
   },
-  // {
-  //   path: 'pedidos',
-  //   canActivate: [],
-  //   loadChildren: './pages/dashpedidos/dashpedidos.module#DashpedidosModule'
-  // }
+  {
+    path: 'pedidos',
+    canActivate: [],
+    loadChildren: './pages/dashpedidos/dashpedidos.module#DashpedidosModule'
+  }
 ];
 
 @NgModule({
